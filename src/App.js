@@ -1,10 +1,11 @@
-import React from 'react';
-import './App.css';
-import {BrowserRouter} from "react-router-dom";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import AppRouter from "./components/AppRouter";
+import {connect} from "react-redux";
+import {initializeApp} from "./redux/app-reducer";
+import Preloader from "./components/common/Preloader/Preloader";
 
 const AppWrapper = styled.div`
   margin: 0 auto;
@@ -21,18 +22,28 @@ const AppWrapper = styled.div`
 `
 
 
-const App = () => {
+const App = ({initialized, initializeApp}) => {
+
+    useEffect(() => {
+        initializeApp();
+        console.log("useEffect")
+    }, [initializeApp]);
+
+    if (!initialized) return <Preloader/>
+
     return (
-        <BrowserRouter>
-            <AppWrapper>
-                <Header/>
-                <Navbar/>
-                <AppRouter/>
-            </AppWrapper>
-        </BrowserRouter>
+        <AppWrapper>
+            <Header/>
+            <Navbar/>
+            <AppRouter/>
+        </AppWrapper>
     );
 };
 
-export default App;
+const mapStateToProps = state => ({
+    initialized: state.app.initialized,
+})
+
+export default connect(mapStateToProps, {initializeApp})(App);
 
 

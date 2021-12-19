@@ -5,7 +5,7 @@ import routes from "../router/router";
 
 const RouterWrapper = styled.div`
   grid-area: c;
-  background-color: cornflowerblue;
+  background-color: #fff;
   margin: 0 0 0 25px;
 `
 
@@ -13,7 +13,7 @@ const AppRouter = () => {
     return (
         <RouterWrapper>
             <Routes>
-                { routes.map(route => <Route {...route} />) }
+                { routes.map(route => <Route {...route} key={route.path}/>) }
                 <Route path="/" element={<Navigate to="/login" />}/>
             </Routes>
         </RouterWrapper>
