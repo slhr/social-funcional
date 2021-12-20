@@ -22,52 +22,52 @@ const LinkWrapper = styled.div`
   border-bottom: 1px solid #f2f2f2;
   display: flex;
   align-items: center;
+
   a:hover {
     color: #dd3e2b;
   }
 `
 
-
 const Navbar = () => {
 
-    const classNames = ({isActive}) => (isActive ? `${styles.link} ${styles.activeLink}` : styles.link)
+    const classes = ({isActive}) => (isActive ? `${styles.link} ${styles.activeLink}` : styles.link)
 
     return (
         <div>
             <NavbarWrapper>
+
                 <LinkWrapper>
-                    <Icon src={profileIcon} alt="arrow-bottom"/>
-                    <NavLink to="/profile" className={classNames}>Profile</NavLink>
+                    <Icon src={profileIcon} alt="profile-icon"/>
+                    <NavLink to="/profile" className={classes}>Profile</NavLink>
                 </LinkWrapper>
 
                 <LinkWrapper>
-                    <Icon src={messagesIcon} alt="arrow-bottom"/>
-                    <NavLink to="/dialogs" className={classNames}>Messages</NavLink>
+                    <Icon src={messagesIcon} alt="messages-icon"/>
+                    <NavLink to="/dialogs" className={classes}>Messages</NavLink>
                 </LinkWrapper>
 
                 <LinkWrapper>
-                    <Icon src={usersIcon} alt="arrow-bottom"/>
-                    <NavLink to="/users" className={classNames}>Users</NavLink>
+                    <Icon src={usersIcon} alt="users-icon"/>
+                    <NavLink to="/users" className={classes}>Users</NavLink>
                 </LinkWrapper>
 
                 <LinkWrapper>
-                    <Icon src={newsIcon} alt="arrow-bottom"/>
-                    <NavLink to="/news" className={classNames}>News</NavLink>
+                    <Icon src={newsIcon} alt="news-icon"/>
+                    <NavLink to="/news" className={classes}>News</NavLink>
                 </LinkWrapper>
 
                 <LinkWrapper>
-                    <Icon src={musicIcon} alt="arrow-bottom"/>
-                    <NavLink to="/music" className={classNames}>Music</NavLink>
+                    <Icon src={musicIcon} alt="music-icon"/>
+                    <NavLink to="/music" className={classes}>Music</NavLink>
                 </LinkWrapper>
 
                 <LinkWrapper>
-                    <Icon src={settingsIcon} alt="arrow-bottom"/>
-                    <NavLink to="/settings" className={classNames}>Settings</NavLink>
+                    <Icon src={settingsIcon} alt="settings-icon"/>
+                    <NavLink to="/settings" className={classes}>Settings</NavLink>
                 </LinkWrapper>
+
             </NavbarWrapper>
-
         </div>
-
     );
 };
 

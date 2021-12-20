@@ -8,3 +8,8 @@ export const Icon = styled.img`
 export const Logo50 = styled.img`
   width: 50px;
 `
+
+export const Avatar200 = styled.img`
+  width: 200px;
+  border-radius: 50%;
+`
