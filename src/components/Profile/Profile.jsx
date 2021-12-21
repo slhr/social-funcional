@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import {getStatus, getUserProfile, updateStatus} from "../../redux/profile-reducer";
-import {useParams} from "react-router-dom";
-import Preloader from "../common/Preloader/Preloader";
+import {useParams, Navigate} from "react-router-dom";
+import Preloader from "../common/Preloader";
 import defaultAvatar from "../../assets/images/default-avatar.png"
-import {Avatar200} from "../Styled/image";
+import {Avatar} from "../Styled/image";
 import styled from "styled-components";
 
 
@@ -13,11 +13,14 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
     const userId = params.userId || authorizedUserId;
 
     useEffect(() => {
-        getUserProfile(userId);
-        getStatus(userId);
+        if (userId) {
+            getUserProfile(userId);
+            getStatus(userId);
+        }
+
     }, [getStatus, getUserProfile, userId]);
 
-
+    if (!userId) return <Navigate to={"/login"} />
     return (<div>
         <ProfileInfo profile={profile}
                      status={status}
@@ -26,16 +29,18 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
     </div>);
 };
 
-const FlexContainer = styled.div`
+export const FlexContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  width: 100%;
+  flex-wrap: ${props => props.flexWrap || "wrap"};
+  width:  ${props => props.width || "100%"};
+  justify-content: center;
 `
 
-const Container = styled.div`
+export const Container = styled.div`
   border: 1px solid #f2f2f2;
   box-shadow: 1px 1px 5px #ccc;
-  width: 100%;
+  width:  ${props => props.width || "100%"};
+  background-color: #fff;
 `
 
 const InfoBlock = styled.div`
@@ -69,7 +74,7 @@ const Rectangle = styled.div`
   position: absolute;
 `
 
-const Avatar = styled.div`
+const AvatarDiv = styled.div`
   position: relative;
   padding: 10px 100px;  
 `
@@ -91,10 +96,10 @@ const ProfileInfo = ({profile, status, updateStatus}) => {
         <Container>
             <AvatarBlock>
                 <Rectangle/>
-                <Avatar>
-                    <Avatar200 src={profile.photos.large ? profile.photos.large : defaultAvatar} alt=""/>
+                <AvatarDiv>
+                    <Avatar width="200px" src={profile.photos.large ? profile.photos.large : defaultAvatar} alt=""/>
                     <button onClick={toggleEditMode}>Edit info</button>
-                </Avatar>
+                </AvatarDiv>
 
             </AvatarBlock>
 

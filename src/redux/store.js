@@ -4,11 +4,13 @@ import thunk from "redux-thunk";
 import authReducer from "./auth-reducer";
 import appReducer from "./app-reducer";
 import profileReducer from "./profile-reducer";
+import usersReducer from "./users-reducer";
 
 const reducers = combineReducers({
     auth: authReducer,
     app: appReducer,
     profile: profileReducer,
+    users: usersReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

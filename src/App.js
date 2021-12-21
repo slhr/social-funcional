@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import AppRouter from "./components/AppRouter";
 import {connect} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
-import Preloader from "./components/common/Preloader/Preloader";
+import Preloader from "./components/common/Preloader";
 
 const AppWrapper = styled.div`
   margin: 0 auto;

@@ -9,7 +9,14 @@ export const Logo50 = styled.img`
   width: 50px;
 `
 
-export const Avatar200 = styled.img`
-  width: 200px;
+export const Avatar = styled.img`
+  width: ${props => props.width || "50px"};
   border-radius: 50%;
+  border: 1px solid #ccc;
+`
+
+export const Avatar150 = styled.img`
+  width: 150px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
 `
