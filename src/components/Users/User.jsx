@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import defaultAvatar from "../../assets/images/default-avatar.png";
-import {Container} from "../Profile/Profile";
+import {Container} from "../Styled/containers";
 import {Avatar} from "../Styled/image";
 import styled from "styled-components";
 

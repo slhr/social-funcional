@@ -3,7 +3,7 @@ import {Formik, Field, Form} from "formik";
 import {login} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {Container, FlexContainer} from "../Profile/Profile";
+import {Container, FlexContainer} from "../Styled/containers";
 import styled from "styled-components";
 
 const FormWrapper = styled.div`

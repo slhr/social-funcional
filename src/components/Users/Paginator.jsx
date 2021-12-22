@@ -1,12 +1,10 @@
 import React, {useState} from "react";
-import {Container} from "../Profile/Profile";
+import {Container} from "../Styled/containers";
 import styled from "styled-components";
 
 const PaginatorContainer = styled(Container)`
   padding: 10px;
   text-align: center;
-
-  
 `
 
 const NavigationButton = styled.button`
@@ -43,11 +41,10 @@ const PageNumberFrame = styled.span`
   border: 2px solid #dd3e2b;
   line-height: 23px;
   border-radius: 5px;
-  
+
 
   :hover {
-    background: #dd3e2b;
-    color: #fff;
+
     cursor: pointer;
   }
 
@@ -77,6 +74,13 @@ const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, porti
         }
     }
 
+    const setNextPortion = () => {
+        if (portionCount > portionNumber) {
+            setPortionNumber(portionNumber + 1)
+
+        }
+    }
+
     return (
 
         <PaginatorContainer>
@@ -84,6 +88,15 @@ const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, porti
                 prev
             </NavigationButton>
 
+            {
+                !totalUsersCount &&
+                <>
+                    <PageNumberFrame isActive>1</PageNumberFrame>
+                    <PageNumberFrame>2</PageNumberFrame>
+                    <PageNumberFrame>3</PageNumberFrame>
+                </>
+
+            }
 
             {
                 pages
@@ -99,14 +112,7 @@ const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, porti
                                                 }>{p}</PageNumberFrame>
                     })
             }
-
-            {
-                portionCount > portionNumber &&
-                <NavigationButton onClick={() => {
-                    setPortionNumber(portionNumber + 1)
-                }
-                }>next</NavigationButton>
-            }
+            <NavigationButton onClick={setNextPortion}>next</NavigationButton>
 
 
         </PaginatorContainer>

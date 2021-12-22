@@ -5,14 +5,18 @@ import preloader from "../../assets/images/preloader.gif"
 
 const Wrapper = styled.div`
   position: absolute;
-  top: 45%;
-  left: 50%
-`
+  top: calc(50% - 40px);
+  left: calc(50% - 40px);
+`;
+
+const StyledPreloader = styled.img`
+    width: 80px;
+`;
 
 const Preloader = () => {
     return (
         <Wrapper>
-            <img src={preloader} alt="preloader"/>
+            <StyledPreloader src={preloader} alt="preloader"/>
         </Wrapper>
     );
 };

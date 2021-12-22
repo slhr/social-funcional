@@ -1,11 +1,13 @@
 import React, {useEffect} from "react";
-import {FlexContainer} from "../Profile/Profile";
+import {FlexContainer} from "../Styled/containers";
 import {connect} from "react-redux";
 
 import {follow, requestUsers, setCurrentPage, toggleFollowingProgress, unfollow} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
 import User from "./User";
 import Paginator from "./Paginator";
+
+
 
 
 const Users = ({
@@ -23,15 +25,23 @@ const Users = ({
 
     return (
 
-            <FlexContainer>
+            <>
                 {
                     isFetching
                         ? <Preloader />
-                        : <div>
-                            <Paginator currentPage={currentPage}
-                                       onPageChanged={onPageChanged}
-                                       totalUsersCount={totalUsersCount}
-                                       pageSize={pageSize}/>
+                        : null
+                }
+
+                {
+                    <div>
+
+                        <Paginator currentPage={currentPage}
+                                   onPageChanged={onPageChanged}
+                                   totalUsersCount={totalUsersCount}
+                                   pageSize={pageSize}/>
+
+                        {
+                            !isFetching &&
 
                             <FlexContainer width="100%" flexWrap="wrap" justify="space-between">
                                 {
@@ -43,11 +53,10 @@ const Users = ({
                                     )
                                 }
                             </FlexContainer>
-
-
-                        </div>
+                        }
+                    </div>
                 }
-            </FlexContainer>
+            </>
 
 
 

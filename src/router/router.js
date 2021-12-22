@@ -1,18 +1,15 @@
-import Dialogs from "../components/Dialogs/Dialogs";
 import Users from "../components/Users/Users";
 import Login from "../components/Login/Login";
-import News from "../components/News/News";
-import Music from "../components/Music/Music";
-import Settings from "../components/Settings/Settings";
+import InDev from "../components/common/InDev";
 
 const routes = [
 
-    {path: "/dialogs", element: <Dialogs />},
+    {path: "/dialogs", element: <InDev />},
     {path: "/users", element: <Users />},
     {path: "/login", element: <Login />},
-    {path: "/news", element: <News />},
-    {path: "/music", element: <Music />},
-    {path: "/settings", element: <Settings />},
+    {path: "/news", element: <InDev />},
+    {path: "/music", element: <InDev />},
+    {path: "/settings", element: <InDev />},
 
 ];
 
