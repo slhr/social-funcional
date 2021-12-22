@@ -7,7 +7,7 @@ import arrowIcon from "../../assets/images/arrow-bottom.png";
 import settingsIcon from "../../assets/images/settings.png";
 import logoutIcon from "../../assets/images/logout.png";
 import {Icon, Logo50} from "../Styled/image";
-import {HeaderPanel, MenuBlock, StyledButton, StyledLI, StyledList} from "./Styled";
+import {HeaderPanel, MenuBlock, MenuButton, StyledLI, StyledList} from "./Styled";
 
 const Header = ({isAuth, email, logout}) => {
     return (
@@ -17,9 +17,9 @@ const Header = ({isAuth, email, logout}) => {
                 {
                     isAuth
                         ? <Menu email={email} logout={logout}/>
-                        : <StyledButton>
+                        : <MenuButton>
                             <NavLink to="/login">Login</NavLink>
-                        </StyledButton>
+                        </MenuButton>
                 }
             </div>
         </HeaderPanel>
@@ -44,10 +44,10 @@ const Menu = ({email, logout}) => {
     }
     return (
         <MenuBlock>
-            <StyledButton onClick={isOpen ? closeMenu : openMenu}>
+            <MenuButton onClick={isOpen ? closeMenu : openMenu}>
                 {email}
                 <Icon src={arrowIcon} alt="arrow-bottom"/>
-            </StyledButton>
+            </MenuButton>
             {
                 isOpen
                     ? <StyledList>

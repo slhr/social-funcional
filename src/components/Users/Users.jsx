@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {follow, requestUsers, setCurrentPage, toggleFollowingProgress, unfollow} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
 import User from "./User";
-import Paginator from "../common/Paginator";
+import Paginator from "./Paginator";
 
 
 const Users = ({
@@ -33,7 +33,7 @@ const Users = ({
                                        totalUsersCount={totalUsersCount}
                                        pageSize={pageSize}/>
 
-                            <FlexContainer width="100%" flexWrap="wrap">
+                            <FlexContainer width="100%" flexWrap="wrap" justify="space-between">
                                 {
                                     users.map(u => <User key={u.id}
                                                          user={u}
@@ -43,6 +43,8 @@ const Users = ({
                                     )
                                 }
                             </FlexContainer>
+
+
                         </div>
                 }
             </FlexContainer>

@@ -33,7 +33,7 @@ export const FlexContainer = styled.div`
   display: flex;
   flex-wrap: ${props => props.flexWrap || "wrap"};
   width:  ${props => props.width || "100%"};
-  justify-content: center;
+  justify-content: ${props => props.justify || "center"};
 `
 
 export const Container = styled.div`

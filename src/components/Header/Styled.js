@@ -12,7 +12,7 @@ export const HeaderPanel = styled.div`
 
 
 
-export const StyledButton = styled.button`
+export const MenuButton = styled.button`
   height: 60px;
   width: 150px;
   background-color: transparent;

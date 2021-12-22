@@ -10,7 +10,7 @@ const FormWrapper = styled.div`
   padding: 25px 25px 10px 25px;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   
   display: inline-block;
   padding: 5px 20px;
@@ -107,7 +107,8 @@ const Login = ({isAuth, login}) => {
                                 <Field as={StyledInput}
                                        id="password"
                                        name="password"
-                                       type="password"/>
+                                       type="password"
+                                       placeholder="Password"/>
                             </div>
 
                             <div>
