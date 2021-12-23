@@ -1,5 +1,5 @@
 import React from "react";
-import {Formik, Field, Form} from "formik";
+import {Formik, Field, Form, ErrorMessage} from "formik";
 import {login} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
@@ -18,8 +18,7 @@ export const StyledButton = styled.button`
   position: relative;
   overflow: hidden;
   border: 2px solid #dd3e2b;
-
-  font-family: 'Montserrat', sans-serif;
+  
   color: #dd3e2b;
   transition: .2s ease-in-out;
 
@@ -78,8 +77,18 @@ const StyledHeading = styled.h2`
 `;
 
 const Login = ({isAuth, login}) => {
-    const handleOnSubmit = formData => {
-        login(formData.email, formData.password, formData.rememberMe)
+    const handleOnSubmit = (values, actions) => {
+        login(values.email, values.password, values.rememberMe)
+            .then(() => {
+                console.log("success");
+            })
+            .catch(errors => {
+                debugger;
+                errors.forEach(error => {
+                    actions.setFieldError(error.field, error.error);
+                })
+
+            })
     }
 
     if (isAuth) {
@@ -93,37 +102,53 @@ const Login = ({isAuth, login}) => {
                     <StyledHeading>LOGIN</StyledHeading>
                     <Formik initialValues={{email: "", password: ""}}
                             onSubmit={handleOnSubmit}>
-                        <Form>
 
-                            <div>
-                                <Field as={StyledInput}
-                                       id="email"
-                                       name="email"
-                                       type="email"
-                                       placeholder="Email"/>
-                            </div>
+                        {
+                            ({errors}) => {
+                                console.log(errors)
+                                return (
+                                    <Form>
 
-                            <div>
-                                <Field as={StyledInput}
-                                       id="password"
-                                       name="password"
-                                       type="password"
-                                       placeholder="Password"/>
-                            </div>
+                                        <div>
+                                            <Field as={StyledInput}
+                                                   id="email"
+                                                   name="email"
+                                                   type="email"
+                                                   placeholder="Email"/>
+                                            {errors.email ? <div>{errors.email}</div> : null}
+                                            <ErrorMessage name="email" />
+                                        </div>
 
-                            <div>
-                                <Field id="rememberMe"
-                                       name="rememberMe"
-                                       type="checkbox"/>
+                                        <div>
+                                            <Field as={StyledInput}
+                                                   id="password"
+                                                   name="password"
+                                                   type="password"
+                                                   placeholder="Password"/>
+                                            {errors.password ? <div>{errors.password}</div> : null}
+                                            <ErrorMessage name="password" />
+                                        </div>
 
-                                <StyledLabel htmlFor="password">Remember Me</StyledLabel>
-                            </div>
+                                        <div>
+                                            <Field id="rememberMe"
+                                                   name="rememberMe"
+                                                   type="checkbox"/>
 
-                            <FlexContainer>
-                                <StyledButton type="submit">SUBMIT</StyledButton>
-                            </FlexContainer>
+                                            <StyledLabel htmlFor="password">Remember Me</StyledLabel>
+                                        </div>
 
-                        </Form>
+                                        <FlexContainer>
+                                            <StyledButton type="submit">SUBMIT</StyledButton>
+                                        </FlexContainer>
+                                        {errors.general ? <div>{errors.general}</div> : null}
+                                        <ErrorMessage name="general" />
+                                    </Form>
+                                )
+                            }
+
+                            }
+
+
                     </Formik>
                 </FormWrapper>
             </Container>

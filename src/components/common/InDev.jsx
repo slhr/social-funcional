@@ -1,13 +1,24 @@
 import React from "react";
-import {Container, FlexContainer} from "../Styled/containers";
+import {Container} from "../Styled/containers";
+import image from "../../assets/images/inProgress.jpg"
+import styled from "styled-components";
+import {useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
+
+const Wrapper = styled(Container)`
+    text-align: center;
+`
 
 const InDev = () => {
+    const userId = useSelector(state => state.auth.userId);
+
+    if (!userId) return <Navigate to={"/login"} />
+
     return (
-        <Container>
-            <FlexContainer>
-                In development...
-            </FlexContainer>
-        </Container>
+        <Wrapper>
+            <img src={image} alt=""/>
+            <div>Page in Progress</div>
+        </Wrapper>
     );
 };
 

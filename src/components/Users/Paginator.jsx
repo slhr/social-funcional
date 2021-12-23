@@ -44,7 +44,6 @@ const PageNumberFrame = styled.span`
 
 
   :hover {
-
     cursor: pointer;
   }
 

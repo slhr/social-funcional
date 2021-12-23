@@ -21,13 +21,16 @@ export const MenuButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;
+  font-weight: bold;
   
   a {
     text-decoration: none;
     display: block;
     width: 100%;
     line-height: 60px;
-    color: black;
+    color: #fff;
+    font-weight: bold;
   }
 `
 export const StyledList = styled.div`

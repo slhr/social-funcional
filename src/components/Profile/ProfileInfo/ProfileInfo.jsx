@@ -59,7 +59,7 @@ const ProfileInfo = ({profile, status, updateStatus}) => {
             <AvatarBlock>
                 <Rectangle/>
                 <AvatarDiv>
-                    <Avatar width="200px" src={profile.photos.large ? profile.photos.large : defaultAvatar} alt=""/>
+                    <Avatar bordered width="200px" src={profile.photos.large ? profile.photos.large : defaultAvatar} alt=""/>
                     <button onClick={toggleEditMode}>Edit info</button>
                 </AvatarDiv>
 

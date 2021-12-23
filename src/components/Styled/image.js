@@ -12,7 +12,7 @@ export const Logo50 = styled.img`
 export const Avatar = styled.img`
   width: ${props => props.width || "50px"};
   border-radius: 50%;
-  border: 10px solid #fff;
+  border: ${props => props.bordered ? "10px solid #fff" : "none"}; 
 `
 
 export const Avatar150 = styled.img`
