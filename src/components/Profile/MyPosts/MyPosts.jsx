@@ -1,13 +1,14 @@
 import React from "react";
-import {Container} from "../../Styled/containers";
-import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {addPostCreator} from "../../../redux/profile-reducer";
 import Post from "./Post";
+import {Container} from "../../Styled/containers";
+import styled from "styled-components";
 
-const PostsContainer = styled.div`
-  margin-top: 25px;
-  background-color: #fff;
+
+const PostsHeaderContainer = styled(Container)`
+  padding: 15px 25px;
+  margin-bottom: 25px;
 `;
 
 const MyPosts = () => {
@@ -19,17 +20,19 @@ const MyPosts = () => {
     };
 
     return (
-        <PostsContainer>
-            <Container>
+        <div>
+            <PostsHeaderContainer>
                 <h3>Posts</h3>
-                    {
-                        posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
-                    }
-            </Container>
-    </PostsContainer>
+            </PostsHeaderContainer>
+
+            <>
+                {
+                    posts.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
+                }
+            </>
+        </div>
     );
 }
-
 
 
 export default MyPosts;

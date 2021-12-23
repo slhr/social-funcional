@@ -17,7 +17,7 @@ const InDev = () => {
     return (
         <Wrapper>
             <img src={image} alt=""/>
-            <div>Page in Progress</div>
+            <div>Developing in progress</div>
         </Wrapper>
     );
 };

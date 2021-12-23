@@ -4,7 +4,15 @@ import {getStatus, getUserProfile, updateStatus} from "../../redux/profile-reduc
 import {useParams, Navigate} from "react-router-dom";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts from "./MyPosts/MyPosts";
+import styled from "styled-components";
+import Friends from "./Friends/Friends";
 
+
+const BlockContainer = styled.div`
+  display: grid;
+  grid-template-columns: 3fr 25px 8fr;  
+  margin-top: 25px;
+`;
 
 
 const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, updateStatus}) => {
@@ -19,13 +27,18 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
 
     }, [getStatus, getUserProfile, userId]);
 
-    if (!userId) return <Navigate to={"/login"} />
+    if (!userId) return <Navigate to={"/login"}/>
     return (<div>
         <ProfileInfo profile={profile}
                      status={status}
                      updateStatus={updateStatus}/>
-        <MyPosts />
-    </div>);
+        <BlockContainer>
+            <Friends/>
+            <div></div>
+            <MyPosts />
+        </BlockContainer>
+    </div>)
+        ;
 };
 
 
