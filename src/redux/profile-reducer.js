@@ -9,10 +9,10 @@ const DELETE_POST = "profileReducer/DELETE_POST";
 const initialState = {
     profile: null,
     posts: [
-        {id: 1, message: "Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you?", likesCount: 10, viewsCount: 32},
-        {id: 2, message: "It's my first post", likesCount: 5, viewsCount: 32},
-        {id: 3, message: "It's my first post", likesCount: 5, viewsCount: 32},
-        {id: 4, message: "It's my first post", likesCount: 5, viewsCount: 32 },
+
+        {id: 1, message: "It's my first post", elapsedTimePost: "3 days ago", likesCount: 26, viewsCount: 58},
+        {id: 2, message: "It's my second post", elapsedTimePost: "2 days ago",  likesCount: 17, viewsCount: 41},
+        {id: 3, message: "It's my third post", elapsedTimePost: "1 day ago",  likesCount: 5, viewsCount: 15 },
     ],
     status: "",
 }
@@ -22,7 +22,7 @@ const profileReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case ADD_POST: {
-            const newPost = {id: 5, message: action.newPostText, likesCount: 0}
+            const newPost = {id: state.posts.length + 1, message: action.newPostText, elapsedTimePost: "just now", likesCount: 0, viewsCount: 0}
             return {
                 ...state,
                 posts: [...state.posts, newPost]

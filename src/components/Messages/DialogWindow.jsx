@@ -3,42 +3,11 @@ import {Icon} from "../Styled/image";
 import smileIcon from "../../assets/images/smile.png";
 import cameraIcon from "../../assets/images/camera.png";
 import attachmentIcon from "../../assets/images/attachment.png";
-import React from "react";
-import defaultAvatar from "../../assets/images/default-avatar.png";
+import React, {useEffect, useRef} from "react";
 import styled from "styled-components";
-
-const messages = [
-
-    {
-        id: 2,
-        avatarSrc: defaultAvatar,
-        isInput: true,
-        text: "hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello"
-    },
-    {
-        id: 3,
-        avatarSrc: defaultAvatar,
-        text: "hello hello hello hello hello hello hello hello hello hello hello hello  hello hello hello hello hello hello hello hello hello hello hello hello "
-    },
-    {
-        id: 4,
-        avatarSrc: defaultAvatar,
-        isInput: true,
-        text: "hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello "
-    },
-    {id: 5, avatarSrc: defaultAvatar, text: "hello"},
-    {id: 6, avatarSrc: defaultAvatar, isInput: true, text: "hello hello hello"},
-    {id: 7, avatarSrc: defaultAvatar, text: "hello"},
-    {id: 8, avatarSrc: defaultAvatar, isInput: true, text: "hello"},
-    {id: 9, avatarSrc: defaultAvatar, text: "hello"},
-    {id: 10, avatarSrc: defaultAvatar, isInput: true, text: "hello"},
-    {id: 11, avatarSrc: defaultAvatar, text: "hello"},
-    {id: 12, avatarSrc: defaultAvatar, isInput: true, text: "hello"},
-    {id: 13, avatarSrc: defaultAvatar, text: "hello"},
-    {id: 14, avatarSrc: defaultAvatar, isInput: true, text: "hello"},
-    {id: 15, avatarSrc: defaultAvatar, text: "..dsad"},
-    {id: 16, avatarSrc: defaultAvatar, isInput: true, text: "/"},
-];
+import {useDispatch, useSelector} from "react-redux";
+import {addMessageCreator} from "../../redux/messenger-reducer";
+import {Formik, Field, Form} from "formik";
 
 const DialogWindowContainer = styled.div`
   display: grid;
@@ -50,7 +19,7 @@ const MessageBlock = styled.div`
   border-bottom: 1px solid #ccc;
   height: 100%;
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 
 `;
 
@@ -74,7 +43,6 @@ const MessageInput = styled.input`
   :focus {
     outline: none;
   }
-
 `;
 
 const MessageSendButton = styled.button`
@@ -105,28 +73,62 @@ const IconBlock = styled.div`
   }
 `;
 
+
 const DialogWindow = () => {
+    const messages = useSelector(state => state.messenger.messages);
+    const dispatch = useDispatch();
+
+
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current.scrollIntoView({block: "start", behavior: "smooth"})
+    }
+
+
+    const handleOnSubmit = (values, {resetForm}) => {
+        if (values.messageText) {
+            dispatch(addMessageCreator(values.messageText));
+            resetForm()
+        }
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [messages])
+
+
     return (
         <DialogWindowContainer>
             <MessageBlock>
                 {
                     messages.map(message => {
+
                         return <Message key={message.id}
-                                        avatarSrc={message.avatarSrc}
                                         text={message.text}
-                                        isInput={message.isInput}/>
+                                        isInput={message.isInput}
+
+                        />
                     })
                 }
-
+                <div style={{float: "left"}} ref={messagesEndRef}/>
             </MessageBlock>
-
             <EnterMessageBlock>
-                <form action="">
-                    <InputBlock>
-                        <MessageInput type="text" placeholder="Type a message here"/>
-                        <MessageSendButton>Send</MessageSendButton>
-                    </InputBlock>
-                </form>
+
+                <Formik initialValues={{messageText: ""}}
+                        onSubmit={handleOnSubmit}>
+                    <Form autoComplete="off">
+
+                        <InputBlock>
+                            <Field as={MessageInput}
+                                   id="messageText"
+                                   name="messageText"
+                                   type="text"
+                                   placeholder="Type a message here"/>
+                            <MessageSendButton type="submit">Send</MessageSendButton>
+                        </InputBlock>
+                    </Form>
+                </Formik>
                 <IconBlock>
                     <Icon src={smileIcon}/>
                     <Icon src={cameraIcon}/>

@@ -38,8 +38,8 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
                      isOwner={isOwner}/>
         <BlockContainer>
             <Friends isOwner={isOwner} isAuthorized={isAuthorized}/>
-            <div></div>
-            <MyPosts />
+            <div/>
+            <MyPosts isOwner={isOwner} isAuthorized={isAuthorized}/>
         </BlockContainer>
     </div>)
         ;

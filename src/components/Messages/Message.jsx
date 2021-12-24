@@ -3,6 +3,7 @@ import defaultAvatar from "../../assets/images/default-avatar.png";
 import React from "react";
 import styled from "styled-components";
 
+
 const StyledMessage = styled.div`
   float: ${props => props.isInput ? "left" : "right"};
   font-size: 14px;
@@ -14,9 +15,7 @@ const StyledMessage = styled.div`
     display: inline-block;
     background: ${props => props.isInput ? "#EFEFEF" : "#E44D3A"};
     color: ${props => props.isInput ? "#686868" : "#fff"};
-    
     max-width: 350px;
-    
     border-radius: 10px;
   }
   
@@ -26,13 +25,13 @@ const StyledMessage = styled.div`
   }
 `;
 
-const Message = ({avatarSrc, isInput, text}) => {
+const Message = ({isInput, text}) => {
     return (
         <StyledMessage isInput={isInput}>
             {
                 isInput
                     ? <div>
-                        <Avatar src={avatarSrc}/>
+                        <Avatar src={defaultAvatar}/>
                         <span>{text}</span>
                     </div>
                     : <div>
@@ -40,7 +39,6 @@ const Message = ({avatarSrc, isInput, text}) => {
                         <Avatar src={defaultAvatar}/>
                     </div>
             }
-
         </StyledMessage>
     );
 }

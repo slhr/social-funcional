@@ -1,22 +1,7 @@
 import {Avatar} from "../Styled/image";
 import React from "react";
 import styled from "styled-components";
-import defaultAvatar from "../../assets/images/default-avatar.png";
-
-
-const dialogs = [
-    {id: 1, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 2, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 3, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 4, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 5, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 6, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 7, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 8, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 9, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-    {id: 10, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "1:55 PM"},
-]
-
+import {useSelector} from "react-redux";
 
 
 const DialogLastMessage = styled.p`
@@ -56,6 +41,9 @@ const DialogItem = styled.li`
   padding: 20px;
   display: flex;
 
+  background-color: ${props => props.active ? "#EFEFEF" : "transparent"};
+  
+
   :hover {
     background-color: #EFEFEF;
     cursor: pointer;
@@ -68,12 +56,14 @@ export const Name = styled.h3`
 `;
 
 const Dialogs = () => {
+    const dialogs = useSelector(state => state.messenger.dialogs);
+
     return (
         <DialogsList>
             {
                 dialogs.map(dialog => {
                     return (
-                        <DialogItem key={dialog.id}>
+                        <DialogItem key={dialog.id} active={dialog.id === 1}>
                             <Avatar width="50px" src={dialog.avatar} alt="avatar"/>
                             <DialogItemTextBlock>
 
