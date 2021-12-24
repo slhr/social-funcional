@@ -41,7 +41,6 @@ const DialogItemTextBlock = styled.div`
   padding-left: 15px;
   display: flex;
   justify-content: space-between;
-
 `;
 
 const DialogsList = styled.ul`
@@ -74,7 +73,7 @@ const Dialogs = () => {
             {
                 dialogs.map(dialog => {
                     return (
-                        <DialogItem>
+                        <DialogItem key={dialog.id}>
                             <Avatar width="50px" src={dialog.avatar} alt="avatar"/>
                             <DialogItemTextBlock>
 

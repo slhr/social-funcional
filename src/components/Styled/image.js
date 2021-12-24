@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const Icon = styled.img`
   width: 20px;
-  margin-right: 10px;
+  height: 20px;
+  margin: ${props => props.margins || "0 15px 0 0"};
+  cursor: ${props => props.pointer ? "pointer" : "auto"};
 `
 
 export const Logo50 = styled.img`

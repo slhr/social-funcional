@@ -9,9 +9,23 @@ import styled from "styled-components";
 
 const messages = [
 
-    {id: 2, avatarSrc: defaultAvatar, isInput: true, text: "hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello"},
-    {id: 3, avatarSrc: defaultAvatar, text: "hello hello hello hello hello hello hello hello hello hello hello hello  hello hello hello hello hello hello hello hello hello hello hello hello "},
-    {id: 4, avatarSrc: defaultAvatar, isInput: true, text: "hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello "},
+    {
+        id: 2,
+        avatarSrc: defaultAvatar,
+        isInput: true,
+        text: "hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello"
+    },
+    {
+        id: 3,
+        avatarSrc: defaultAvatar,
+        text: "hello hello hello hello hello hello hello hello hello hello hello hello  hello hello hello hello hello hello hello hello hello hello hello hello "
+    },
+    {
+        id: 4,
+        avatarSrc: defaultAvatar,
+        isInput: true,
+        text: "hello hello hello hello hello hello hello hello hello hello hello hello hello hello hello "
+    },
     {id: 5, avatarSrc: defaultAvatar, text: "hello"},
     {id: 6, avatarSrc: defaultAvatar, isInput: true, text: "hello hello hello"},
     {id: 7, avatarSrc: defaultAvatar, text: "hello"},
@@ -37,7 +51,7 @@ const MessageBlock = styled.div`
   height: 100%;
   overflow: hidden;
   overflow-y: scroll;
-  
+
 `;
 
 const EnterMessageBlock = styled.div`
@@ -60,7 +74,7 @@ const MessageInput = styled.input`
   :focus {
     outline: none;
   }
-  
+
 `;
 
 const MessageSendButton = styled.button`
@@ -97,7 +111,8 @@ const DialogWindow = () => {
             <MessageBlock>
                 {
                     messages.map(message => {
-                        return <Message avatarSrc={message.avatarSrc}
+                        return <Message key={message.id}
+                                        avatarSrc={message.avatarSrc}
                                         text={message.text}
                                         isInput={message.isInput}/>
                     })

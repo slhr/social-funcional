@@ -9,10 +9,10 @@ const DELETE_POST = "profileReducer/DELETE_POST";
 const initialState = {
     profile: null,
     posts: [
-        {id: 1, message: "Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you?", likesCount: 10},
-        {id: 2, message: "It's my first post", likesCount: 5},
-        {id: 2, message: "It's my first post", likesCount: 5},
-        {id: 2, message: "It's my first post", likesCount: 5},
+        {id: 1, message: "Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you? Hi how are you?", likesCount: 10, viewsCount: 32},
+        {id: 2, message: "It's my first post", likesCount: 5, viewsCount: 32},
+        {id: 3, message: "It's my first post", likesCount: 5, viewsCount: 32},
+        {id: 4, message: "It's my first post", likesCount: 5, viewsCount: 32 },
     ],
     status: "",
 }

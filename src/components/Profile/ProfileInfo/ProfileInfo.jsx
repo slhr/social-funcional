@@ -42,7 +42,7 @@ const AvatarDiv = styled.div`
   padding: 10px 100px;  
 `
 
-const ProfileInfo = ({profile, status, updateStatus}) => {
+const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
     const [editMode, setEditMode] = useState(false);
 
     const toggleEditMode = () => {
@@ -60,7 +60,7 @@ const ProfileInfo = ({profile, status, updateStatus}) => {
                 <Rectangle/>
                 <AvatarDiv>
                     <Avatar bordered width="200px" src={profile.photos.large ? profile.photos.large : defaultAvatar} alt=""/>
-                    <button onClick={toggleEditMode}>Edit info</button>
+                    {isOwner && <button onClick={toggleEditMode}>Edit info</button>}
                 </AvatarDiv>
 
             </AvatarBlock>
@@ -114,14 +114,8 @@ const ProfileInfo = ({profile, status, updateStatus}) => {
                                 return null;
                             })
                         }
-
-
-
                     </InfoBlock>
-
                 </FlexContainer>
-
-
             }
 
         </Container>

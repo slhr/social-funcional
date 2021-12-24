@@ -17,7 +17,10 @@ const BlockContainer = styled.div`
 
 const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, updateStatus}) => {
     const params = useParams();
+    const isOwner = !params.userId;
+    const isAuthorized = !!authorizedUserId;
     const userId = params.userId || authorizedUserId;
+
 
     useEffect(() => {
         if (userId) {
@@ -31,9 +34,10 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
     return (<div>
         <ProfileInfo profile={profile}
                      status={status}
-                     updateStatus={updateStatus}/>
+                     updateStatus={updateStatus}
+                     isOwner={isOwner}/>
         <BlockContainer>
-            <Friends/>
+            <Friends isOwner={isOwner} isAuthorized={isAuthorized}/>
             <div></div>
             <MyPosts />
         </BlockContainer>

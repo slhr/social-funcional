@@ -80,7 +80,7 @@ const Login = ({isAuth, login}) => {
     const handleOnSubmit = (values, actions) => {
         login(values.email, values.password, values.rememberMe)
             .then(() => {
-                console.log("success");
+
             })
             .catch(errors => {
                 debugger;
@@ -105,7 +105,7 @@ const Login = ({isAuth, login}) => {
 
                         {
                             ({errors}) => {
-                                console.log(errors)
+
                                 return (
                                     <Form>
 
