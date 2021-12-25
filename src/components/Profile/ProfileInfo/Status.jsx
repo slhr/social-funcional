@@ -1,4 +1,21 @@
 import React, {useEffect, useState} from "react";
+import styled from "styled-components";
+
+
+const Status = styled.div`
+  padding: 5px 0 5px 0;
+  :hover {
+    background-color: #ccc;
+    cursor: pointer;
+  }
+`;
+
+const StatusInput = styled.input`
+  padding: 5px 0 5px 0;
+  font-size: 16px;
+  width: 100%;
+  height: 28px;
+`
 
 const ProfileStatus = ({status, updateStatus}) => {
     const [editMode, setEditMode] = useState(false);
@@ -24,13 +41,13 @@ const ProfileStatus = ({status, updateStatus}) => {
     return (
 
         editMode
-            ? <input autoFocus={true}
+            ? <StatusInput autoFocus={true}
                      onBlur={deactivateEditMode}
                      type="text"
                      value={formStatus}
                      onChange={onStatusChange}/>
 
-            : <span onDoubleClick={activateEditMode}>{status}</span>
+            : <Status onClick={activateEditMode}>{status ? status : "set status"}</Status>
 
 
     );

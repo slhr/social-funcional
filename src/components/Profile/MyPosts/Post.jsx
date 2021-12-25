@@ -3,13 +3,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Icon} from "../../Styled/image";
 import defaultAvatar from "../../../assets/images/default-avatar.png"
 import styled from "styled-components";
-import {Container} from "../../Styled/containers";
+import {Container, IconBlock} from "../../Styled/containers";
 import menuIcon from "../../../assets/images/menu.png";
 import likeDisabledIcon from "../../../assets/images/likeDisabled.png";
 import likeEnabledIcon from "../../../assets/images/likeEnabled.png";
 import eyeIcon from "../../../assets/images/eye.png";
 import {addPostCreator} from "../../../redux/profile-reducer";
 import {Formik, Form, Field} from "formik";
+import smileIcon from "../../../assets/images/smile.png";
+import cameraIcon from "../../../assets/images/camera.png";
+import attachmentIcon from "../../../assets/images/attachment.png";
 
 
 const PostContainer = styled(Container)`
@@ -142,8 +145,6 @@ const PostInput = styled.textarea`
 `;
 
 const PostSendButton = styled.button`
-
-
   margin: 15px 0 0 0;
   width: 100px;
   height: 35px;
@@ -162,6 +163,11 @@ const PostSendButton = styled.button`
 `;
 
 const Div = styled.div`
+  
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0 0 65px;
   text-align: right;
 `
 
@@ -183,10 +189,18 @@ export const PostCreateForm = ({toggleEditMode}) => {
                     <PostHeaderBlock>
                         <Avatar src={avatarPath} alt="avatar" width="50px"/>
 
-                        <Field as={PostInput} name="postText" id="postText" type="text" placeholder="Type a post message here"/>
+
+                        <Field as={PostInput} name="postText" id="postText" type="text"
+                               placeholder="Type a post message here"/>
+
                     </PostHeaderBlock>
 
                     <Div>
+                        <IconBlock>
+                            <Icon src={smileIcon}/>
+                            <Icon src={cameraIcon}/>
+                            <Icon src={attachmentIcon}/>
+                        </IconBlock>
                         <PostSendButton type="submit">
                             Add Post
                         </PostSendButton>

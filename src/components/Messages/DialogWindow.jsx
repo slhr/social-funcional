@@ -8,6 +8,7 @@ import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {addMessageCreator} from "../../redux/messenger-reducer";
 import {Formik, Field, Form} from "formik";
+import {IconBlock} from "../Styled/containers";
 
 const DialogWindowContainer = styled.div`
   display: grid;
@@ -62,16 +63,6 @@ const MessageSendButton = styled.button`
   }
 `;
 
-const IconBlock = styled.div`
-  width: 110px;
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 0 0;
-
-  img:hover {
-    cursor: pointer;
-  }
-`;
 
 
 const DialogWindow = () => {

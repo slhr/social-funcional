@@ -8,10 +8,10 @@ import styled from "styled-components";
 import Friends from "./Friends/Friends";
 
 
-const BlockContainer = styled.div`
+export const BlockContainer = styled.div`
   display: grid;
-  grid-template-columns: 3fr 25px 8fr;  
-  margin-top: 25px;
+  grid-template-columns: 300px 1fr;
+  margin-bottom: 25px;
 `;
 
 
@@ -31,17 +31,17 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
     }, [getStatus, getUserProfile, userId]);
 
     if (!userId) return <Navigate to={"/login"}/>
-    return (<div>
-        <ProfileInfo profile={profile}
-                     status={status}
-                     updateStatus={updateStatus}
-                     isOwner={isOwner}/>
-        <BlockContainer>
-            <Friends isOwner={isOwner} isAuthorized={isAuthorized}/>
-            <div/>
-            <MyPosts isOwner={isOwner} isAuthorized={isAuthorized}/>
-        </BlockContainer>
-    </div>)
+    return (
+        <div>
+            <ProfileInfo profile={profile}
+                         status={status}
+                         updateStatus={updateStatus}
+                         isOwner={isOwner}/>
+            <BlockContainer>
+                <Friends isOwner={isOwner} isAuthorized={isAuthorized}/>
+                <MyPosts isOwner={isOwner} isAuthorized={isAuthorized}/>
+            </BlockContainer>
+        </div>)
         ;
 };
 

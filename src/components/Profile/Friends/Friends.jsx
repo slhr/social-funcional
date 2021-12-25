@@ -23,7 +23,7 @@ const FriendsContainer = styled.div`
 `;
 
 const FriendsWrapper = styled.div`
-  margin-bottom: 25px;
+  margin: 0 25px 25px 0;
 `;
 
 const FriendsFrame = styled.div`
