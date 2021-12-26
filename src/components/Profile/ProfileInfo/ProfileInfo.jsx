@@ -6,21 +6,51 @@ import ProfileStatus from "./Status";
 import {Container, FlexContainer} from "../../Styled/containers";
 import styled from "styled-components";
 import {BlockContainer} from "../Profile";
+import {Formik, Form, Field} from "formik";
+import {useDispatch} from "react-redux";
+import {saveProfile} from "../../../redux/profile-reducer";
 
 const InfoBlock = styled.div`
   margin: 15px;
-  padding: 5px;
-  border-bottom: 1px solid #ccc;
-  .fullName {
-    font-size: 28px;
-    font-weight: bold;
-  }
-`
+  padding: 0 0 15px 0;
+  border-bottom: ${props => props.borderBottom && "1px solid #ccc"};
+  position: relative;
+`;
+
+const InfoBlockHeader = styled.div`
+  position: absolute;
+  height: 22px;
+  background-color: #fff;
+  padding: 0 10px 0 0;
+  top: -25px;
+  left: 0;
+`;
+
+const Name = styled.span`
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const OnlineStatus = styled.span`
+  font-size: 16px;
+  color: #939393;
+`;
+
 
 const InfoItem = styled.span`
-    padding: 5px 0 5px 0;
-`
+  padding: 5px 0 5px 0;
+  color: ${props => props.field && "#818C99"};
+`;
 
+const InputItem = styled.input`
+  width: 100%;
+  font-size: 16px;
+  background-color: #f2f2f2;
+  border: none;
+  outline: none;
+
+`
 
 
 const Rectangle = styled.div`
@@ -30,7 +60,7 @@ const Rectangle = styled.div`
   position: absolute;
 `
 
-const AvatarDiv = styled.div`
+const AvatarBlock = styled.div`
   position: relative;
   padding: 10px 10px;
   text-align: center;
@@ -40,25 +70,45 @@ const Wrapper = styled.div`
   margin-right: 25px;
 `;
 
-const NameBlock = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
-`
+`;
+
+const ProfileButton = styled.button`
+
+  padding: 5px;
+  background-color: #E44D3A;
+  color: #fff;
+  border: 2px solid #dd3e2b;
+
+  :hover {
+    cursor: pointer;
+  }
+
+  :active {
+    background-color: #fff;
+    color: #dd3e2b;
+  }
+`;
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
     const [editMode, setEditMode] = useState(false);
+    const dispatch = useDispatch();
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
     }
 
-    const deactivateEditMode = () => {
-        setEditMode(false);
+    const handleOnSubmit = (values) => {
+        const keys = Object.keys(values);
+        keys.forEach(key => {
+            if (!values[key]) values[key] = "-";
+        })
+
+
+        dispatch(saveProfile(values))
+        toggleEditMode()
     }
 
     if (!profile) return <Preloader/>
@@ -67,131 +117,111 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
         <BlockContainer>
 
             <Wrapper>
-                <FlexContainer>
-                    <Container>
-                        <Rectangle/>
-                        <AvatarDiv>
-                            <Avatar bordered width="200px"
-                                    src={profile.photos.large ? profile.photos.large : defaultAvatar}
-                                    alt=""/>
-                            <div>
-                                {isOwner && <button onClick={toggleEditMode}>Edit info</button>}
-                            </div>
-                        </AvatarDiv>
+                <Container>
+                    <Rectangle/>
+                    <AvatarBlock>
+                        <Avatar bordered width="220px"
+                                src={profile.photos.large ? profile.photos.large : defaultAvatar}
+                                alt=""/>
 
+                    </AvatarBlock>
+                </Container>
+
+                <Container>
+                    <AvatarBlock>
+                        <div>Following</div>
+                        <div>55</div>
+                    </AvatarBlock>
+                </Container>
+
+                <Container>
+                    <AvatarBlock>
+                        <div>Followers</div>
+                        <div>42</div>
+                    </AvatarBlock>
+                </Container>
+
+                {isOwner &&
+                    <Container>
+                        <AvatarBlock>
+                            <div>
+                                <ProfileButton onClick={toggleEditMode}>Edit profile</ProfileButton>
+                            </div>
+                        </AvatarBlock>
                     </Container>
-                </FlexContainer>
+                }
             </Wrapper>
 
-
             <Container>
-                <InfoBlock>
+                <InfoBlock borderBottom>
 
-                    <NameBlock>
-                        <div className="fullName">{profile.fullName}</div>
-                        <div>Online</div>
-                    </NameBlock>
-
-
+                    <FlexContainer justify="space-between">
+                        <Name>{profile.fullName}</Name>
+                        <OnlineStatus>Online</OnlineStatus>
+                    </FlexContainer>
                     {
                         isOwner
-                            ?
-                            <div className="status">
-                                <ProfileStatus status={status} updateStatus={updateStatus}/>
-                            </div>
-
-                            : <div className="status">{status}</div>
+                            ? <ProfileStatus status={status} updateStatus={updateStatus}/>
+                            : <span>{status}</span>
                     }
                 </InfoBlock>
 
-
-                <InfoBlock>
-                    <GridContainer>
-                        <InfoItem>AboutMe:</InfoItem>
-                        <InfoItem>{profile.aboutMe || "-"}</InfoItem>
-                    </GridContainer>
-
-                    <GridContainer>
-                        <InfoItem>Looking for a job:</InfoItem>
-                        <InfoItem>{profile.lookingForAJob ? "yes" : "no"}</InfoItem>
-                    </GridContainer>
-
-                    <GridContainer>
-                        <InfoItem>Skills:</InfoItem>
-                        <InfoItem>{profile.lookingForAJobDescription || "-"}</InfoItem>
-                    </GridContainer>
-                </InfoBlock>
-
-                <InfoBlock>
-                    <div className="contacts">Contacts:</div>
-                    {
-                            Object.keys(profile.contacts).map(key => {
-
-                                return (
-                                    <GridContainer key={key}>
-                                        <InfoItem>{key}:</InfoItem>
-                                        <InfoItem>{profile.contacts[key] || "-"}</InfoItem>
-                                    </GridContainer>);
+                <Formik initialValues={{
+                    fullName: profile.fullName,
+                    aboutMe: profile.aboutMe,
+                    lookingForAJob: profile.lookingForAJob,
+                    lookingForAJobDescription: profile.lookingForAJobDescription,
+                    contacts: profile.contacts,
+                }}
+                        onSubmit={handleOnSubmit}>
+                    <Form autoComplete="off">
 
 
-                        })
-                    }
-                </InfoBlock>
+                        <InfoBlock borderBottom>
+                            <GridContainer>
+                                <InfoItem field>AboutMe:</InfoItem>
+                                <InfoItem>{editMode ? <Field as={InputItem} type="text" name="aboutMe"
+                                                             id="aboutMe"/> : profile.aboutMe || "-"}</InfoItem>
+                            </GridContainer>
 
+                            <GridContainer>
+                                <InfoItem field>Looking for a job:</InfoItem>
+                                <InfoItem>{editMode ?
+                                    <Field type="checkbox" name="lookingForAJob"
+                                           id="lookingForAJob"/> : profile.lookingForAJob ? "yes" : "no"}</InfoItem>
+                            </GridContainer>
 
-                {/*{editMode*/}
-                {/*    ?*/}
-                {/*    <>*/}
-                {/*        <>*/}
+                            <GridContainer>
+                                <InfoItem field>Skills:</InfoItem>
+                                <InfoItem>{editMode ?
+                                    <Field as={InputItem} type="text" name="lookingForAJobDescription"
+                                           id="lookingForAJobDescription"/> : profile.lookingForAJobDescription || "-"}</InfoItem>
+                            </GridContainer>
+                        </InfoBlock>
 
+                        <InfoBlock>
+                            <InfoBlockHeader>Contact info</InfoBlockHeader>
+                            {
+                                Object.keys(profile.contacts).map(key => {
+                                    return (
+                                        <GridContainer key={key}>
+                                            <InfoItem field>{key}:</InfoItem>
+                                            <InfoItem>{editMode ?
+                                                <Field as={InputItem} type="text" name={`contacts.${key}`}
+                                                       id={`contacts.${key}`}/> : profile.contacts[key] || "-"}</InfoItem>
+                                        </GridContainer>);
+                                })
+                            }
+                            <GridContainer>
+                                <div/>
+                                <InfoItem> {editMode && <ProfileButton type="submit">Save</ProfileButton>}</InfoItem>
+                            </GridContainer>
 
-                {/*            <div className="aboutMe">AboutMe:<input type="text"/></div>*/}
+                        </InfoBlock>
 
-                {/*            <div className="lookingForAJob">Looking for a job <input type="checkbox"/></div>*/}
-                {/*            <div className="lookingForAJobDescription">Skills: <input type="text"/></div>*/}
-                {/*        </>*/}
-
-                {/*        <>*/}
-                {/*            <div className="contacts">Contacts:</div>*/}
-                {/*            {*/}
-                {/*                Object.keys(profile.contacts).map(key => {*/}
-                {/*                    return <div key={key}>{key}: <input type="text"/></div>*/}
-
-                {/*                })*/}
-                {/*            }*/}
-
-                {/*            <button onClick={deactivateEditMode}>Save</button>*/}
-
-                {/*        </>*/}
-
-                {/*    </>*/}
-                {/*    :*/}
-                {/*    <>*/}
-                {/*        <>*/}
-
-                {/*            <div className="aboutMe">AboutMe: {profile.aboutMe}</div>*/}
-                {/*            <div className="lookingForAJob">Looking for a*/}
-                {/*                job: {profile.lookingForAJob ? "yes" : "no"}</div>*/}
-                {/*            <div className="lookingForAJobDescription">Skills: {profile.lookingForAJobDescription}</div>*/}
-                {/*        </>*/}
-
-                {/*        <>*/}
-                {/*            <div className="contacts">Contacts:</div>*/}
-                {/*            {*/}
-                {/*                Object.keys(profile.contacts).map(key => {*/}
-                {/*                    if (profile.contacts[key]) {*/}
-                {/*                        return <div key={key} className="contact">{key}: {profile.contacts[key]}</div>*/}
-                {/*                    }*/}
-                {/*                    return null;*/}
-                {/*                })*/}
-                {/*            }*/}
-                {/*        </>*/}
-                {/*    </>*/}
-                {/*}*/}
-
-
+                    </Form>
+                </Formik>
             </Container>
-
         </BlockContainer>
     );
 }

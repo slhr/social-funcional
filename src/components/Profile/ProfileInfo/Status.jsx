@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Status = styled.div`
   padding: 5px 0 5px 0;
   :hover {
-    background-color: #ccc;
+    background-color: #f2f2f2;
     cursor: pointer;
   }
 `;
@@ -16,6 +16,10 @@ const StatusInput = styled.input`
   width: 100%;
   height: 28px;
 `
+
+const NoneStatus = styled.span`
+    color: #939393;
+`;
 
 const ProfileStatus = ({status, updateStatus}) => {
     const [editMode, setEditMode] = useState(false);
@@ -47,7 +51,7 @@ const ProfileStatus = ({status, updateStatus}) => {
                      value={formStatus}
                      onChange={onStatusChange}/>
 
-            : <Status onClick={activateEditMode}>{status ? status : "set status"}</Status>
+            : <Status onClick={activateEditMode}>{status ? status : <NoneStatus>set status</NoneStatus>}</Status>
 
 
     );
