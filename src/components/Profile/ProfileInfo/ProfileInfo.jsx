@@ -8,7 +8,7 @@ import styled from "styled-components";
 import {BlockContainer} from "../Profile";
 import {Formik, Form, Field} from "formik";
 import {useDispatch} from "react-redux";
-import {saveProfile} from "../../../redux/profile-reducer";
+import {saveProfile, setAvatarPhoto} from "../../../redux/profile-reducer";
 
 const InfoBlock = styled.div`
   margin: 15px;
@@ -92,6 +92,33 @@ const ProfileButton = styled.button`
   }
 `;
 
+const AvatarInput = styled.input`
+  display: none;
+`;
+
+const AvatarInputLabel = styled.label`
+  margin: 20px 36px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  width: 200px;
+  height: 200px;
+  top: 0;
+  left: 0;
+  
+  :hover {
+    background-color: #000;
+    opacity: 70%;
+    color: #fff;
+    cursor: pointer;
+  }
+`
+
 const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
     const [editMode, setEditMode] = useState(false);
     const dispatch = useDispatch();
@@ -100,18 +127,23 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
         setEditMode(!editMode);
     }
 
+    const changeAvatar = (e) => {
+        if (e.target.files.length) {
+            dispatch(setAvatarPhoto(e.target.files[0]));
+        }
+    }
+
     const handleOnSubmit = (values) => {
         const keys = Object.keys(values);
         keys.forEach(key => {
             if (!values[key]) values[key] = "-";
         })
 
-
         dispatch(saveProfile(values))
         toggleEditMode()
     }
 
-    if (!profile) return <Preloader/>
+    if (!profile) return <Preloader/>;
 
     return (
         <BlockContainer>
@@ -120,9 +152,19 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                 <Container>
                     <Rectangle/>
                     <AvatarBlock>
+
                         <Avatar bordered width="220px"
-                                src={profile.photos.large ? profile.photos.large : defaultAvatar}
+                                src={profile.photos.large || defaultAvatar}
                                 alt=""/>
+
+                        {
+                            isOwner &&
+                            <>
+                                <AvatarInput type="file" id="avatarUpload" onChange={changeAvatar}/>
+                                <AvatarInputLabel htmlFor="avatarUpload">Upload avatar</AvatarInputLabel>
+                            </>
+                        }
+
 
                     </AvatarBlock>
                 </Container>
@@ -150,6 +192,8 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                         </AvatarBlock>
                     </Container>
                 }
+
+
             </Wrapper>
 
             <Container>

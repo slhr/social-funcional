@@ -38,7 +38,18 @@ export const profileAPI = {
 
     saveProfile(profile) {
         return instance.put(`profile`, profile);
-    }
+    },
+
+    setAvatarPhoto(file) {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+    },
 
 }
 

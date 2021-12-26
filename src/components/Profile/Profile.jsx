@@ -36,9 +36,10 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
             <ProfileInfo profile={profile}
                          status={status}
                          updateStatus={updateStatus}
-                         isOwner={isOwner}/>
+                         isOwner={isOwner}
+                         isAuthorized={isAuthorized}/>
             <BlockContainer>
-                <Friends isOwner={isOwner} isAuthorized={isAuthorized}/>
+                <Friends isOwner={isOwner}  isAuthorized={isAuthorized}/>
                 <MyPosts isOwner={isOwner} isAuthorized={isAuthorized}/>
             </BlockContainer>
         </div>)
