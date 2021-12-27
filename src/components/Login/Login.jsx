@@ -1,7 +1,7 @@
 import React from "react";
 import {Formik, Field, Form, ErrorMessage} from "formik";
 import {login} from "../../redux/auth-reducer";
-import {connect} from "react-redux";
+import {connect, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {Container, FlexContainer} from "../Styled/containers";
 import styled from "styled-components";
@@ -77,13 +77,15 @@ const StyledHeading = styled.h2`
 `;
 
 const Login = ({isAuth, login}) => {
+    const captchaUrl = useSelector(state => state.auth.captchaUrl);
     const handleOnSubmit = (values, actions) => {
-        login(values.email, values.password, values.rememberMe)
+        console.log(values)
+        login(values.email, values.password, values.rememberMe, values.captcha)
             .then(() => {
 
             })
             .catch(errors => {
-                debugger;
+
                 errors.forEach(error => {
                     actions.setFieldError(error.field, error.error);
                 })
@@ -100,7 +102,7 @@ const Login = ({isAuth, login}) => {
             <Container width="30%">
                 <FormWrapper>
                     <StyledHeading>LOGIN</StyledHeading>
-                    <Formik initialValues={{email: "", password: ""}}
+                    <Formik initialValues={{email: "", password: "",}}
                             onSubmit={handleOnSubmit}>
 
                         {
@@ -136,6 +138,20 @@ const Login = ({isAuth, login}) => {
 
                                             <StyledLabel htmlFor="password">Remember Me</StyledLabel>
                                         </div>
+
+                                        {
+                                            captchaUrl &&
+                                            <>
+
+                                                <img src={captchaUrl} alt="captcha"/>
+                                                <Field as={StyledInput}
+                                                       id="captcha"
+                                                       name="captcha"
+                                                       type="captcha"
+                                                       placeholder="Enter symbols from picture"/>
+                                            </>
+
+                                        }
 
                                         <FlexContainer>
                                             <StyledButton type="submit">SUBMIT</StyledButton>
