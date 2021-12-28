@@ -1,15 +1,14 @@
 import defaultAvatar from "../assets/images/default-avatar.png";
 
-const ADD_MESSAGE = "messages/ADD-MESSAGE"
+const ADD_MESSAGE = "messenger-reducer/ADD_MESSAGE"
 
-
-let initialState = {
-
+const initialState = {
     messages: [
         {id: 1, isInput: true, text: "Welcome"},
         {id: 2, text: "Hello"},
         {id: 3, isInput: true, text: "Enter new message"},
     ],
+
     dialogs: [
         {id: 1, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "7:55 PM"},
         {id: 2, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "3:22 PM"},
@@ -25,29 +24,29 @@ let initialState = {
 }
 
 const messengerReducer = (state = initialState, action) => {
-        switch (action.type) {
-            case ADD_MESSAGE:
-                return {
-                    ...state,
-                    messages: [
-                        ...state.messages,
-                        {
-                            id: state.messages.length + 1,
-                            avatarSrc: defaultAvatar,
-                            text: action.newMessageBody
-                        }
-                    ]
-                }
+    switch (action.type) {
+        case ADD_MESSAGE:
+            return {
+                ...state,
+                messages: [
+                    ...state.messages,
+                    {
+                        id: state.messages.length + 1,
+                        avatarSrc: defaultAvatar,
+                        text: action.message
+                    }
+                ]
+            }
 
-            default:
-                return state;
-        }
+        default:
+            return state;
     }
-;
+}
+
 
 export default messengerReducer;
 
 
 // action creators
 
-export const addMessageCreator = (newMessageBody) => ({type: ADD_MESSAGE, newMessageBody});
+export const addMessageCreator = message => ({type: ADD_MESSAGE, message});

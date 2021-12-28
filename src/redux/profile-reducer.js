@@ -1,21 +1,19 @@
 import {profileAPI} from "../api/api";
 
-const ADD_POST = "profileReducer/ADD-POST";
-const SET_USER_PROFILE = "profileReducer/SET_USER_PROFILE";
-const SET_STATUS = "profileReducer/SET_STATUS";
-const DELETE_POST = "profileReducer/DELETE_POST";
-const SAVE_PHOTO_SUCCESS = "profileReducer/SAVE_PHOTO_SUCCESS";
+const ADD_POST = "profile-reducer/ADD_POST";
+const SET_USER_PROFILE = "profile-reducer/SET_USER_PROFILE";
+const SET_STATUS = "profile-reducer/SET_STATUS";
+const SAVE_PHOTO_SUCCESS = "profile-reducer/SAVE_PHOTO_SUCCESS";
 
 
 const initialState = {
     profile: null,
+    status: "",
     posts: [
-
         {id: 1, message: "It's my first post", elapsedTimePost: "3 days ago", likesCount: 26, viewsCount: 58},
         {id: 2, message: "It's my second post", elapsedTimePost: "2 days ago", likesCount: 17, viewsCount: 41},
         {id: 3, message: "It's my third post", elapsedTimePost: "1 day ago", likesCount: 5, viewsCount: 15},
     ],
-    status: "",
 }
 
 
@@ -48,11 +46,6 @@ const profileReducer = (state = initialState, action) => {
                     ...state,
                     status: action.status
                 };
-            case DELETE_POST:
-                return {
-                    ...state,
-                    posts: state.posts.filter((p) => p.id !== action.postId)
-                };
             case SAVE_PHOTO_SUCCESS:
                 return {
                     ...state,
@@ -75,7 +68,6 @@ export default profileReducer;
 export const addPostCreator = (newPostText) => ({type: ADD_POST, newPostText});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
 export const setStatus = (status) => ({type: SET_STATUS, status});
-export const deletePost = (postId) => ({type: DELETE_POST, postId});
 export const savePhotoSuccess = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos});
 
 // thunks

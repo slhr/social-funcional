@@ -1,13 +1,13 @@
 import {usersAPI} from "../api/api";
 import {updateObjectInArray} from "../utils/objects-helpers";
 
-const FOLLOW = "usersReducer/FOLLOW";
-const UNFOLLOW = "usersReducer/UNFOLLOW";
-const SET_USERS = "usersReducer/SET_USERS";
-const SET_CURRENT_PAGE = "usersReducer/SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT = "usersReducer/SET_TOTAL_USERS_COUNT";
-const TOGGLE_IS_FETCHING = "usersReducer/TOGGLE_IS_FETCHING";
-const TOGGLE_IS_FOLLOWING_PROGRESS = "usersReducer/TOGGLE_IS_FOLLOWING_PROGRESS";
+const FOLLOW = "users-reducer/FOLLOW";
+const UNFOLLOW = "users-reducer/UNFOLLOW";
+const SET_USERS = "users-reducer/SET_USERS";
+const SET_CURRENT_PAGE = "users-reducer/SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "users-reducer/SET_TOTAL_USERS_COUNT";
+const TOGGLE_IS_FETCHING = "users-reducer/TOGGLE_IS_FETCHING";
+const TOGGLE_IS_FOLLOWING_PROGRESS = "users-reducer/TOGGLE_IS_FOLLOWING_PROGRESS";
 
 let initialState = {
     users: [],
@@ -16,7 +16,7 @@ let initialState = {
     currentPage: 1,
 
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [],
 }
 
 
@@ -25,41 +25,40 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, "id", {followed: true})
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: true}),
             }
-
         case UNFOLLOW:
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: false}),
             }
-
         case SET_USERS:
             return {
                 ...state,
-                users: [...action.users]
+                users: [...action.users],
             }
         case SET_CURRENT_PAGE:
             return {
                 ...state,
-                currentPage: action.currentPage
+                currentPage: action.currentPage,
             }
         case SET_TOTAL_USERS_COUNT:
             return {
                 ...state,
-                totalUsersCount: action.totalCount
+                totalUsersCount: action.totalCount,
             }
         case TOGGLE_IS_FETCHING:
             return {
                 ...state,
-                isFetching: action.isFetching
+                isFetching: action.isFetching,
             }
         case TOGGLE_IS_FOLLOWING_PROGRESS:
             return {
                 ...state,
                 followingInProgress: action.isFetching
                     ? [...state.followingInProgress, action.userId]
-                    : state.followingInProgress.filter(id => id !== action.userId)
+                    : state.followingInProgress.filter(id => id !== action.userId),
+
             }
         default:
             return state;
