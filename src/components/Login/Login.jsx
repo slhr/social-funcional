@@ -1,5 +1,5 @@
 import React from "react";
-import {Formik, Field, Form, ErrorMessage} from "formik";
+import {Formik, Field, Form} from "formik";
 import {login} from "../../redux/auth-reducer";
 import {connect, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
@@ -11,14 +11,14 @@ const FormWrapper = styled.div`
 `;
 
 export const StyledButton = styled.button`
-  
+
   display: inline-block;
   padding: 5px 20px;
   margin: 20px 20px;
   position: relative;
   overflow: hidden;
   border: 2px solid #dd3e2b;
-  
+
   color: #dd3e2b;
   transition: .2s ease-in-out;
 
@@ -76,20 +76,18 @@ const StyledHeading = styled.h2`
   margin: 0 0 40px 0;
 `;
 
+const StatusField = styled.div`
+  text-align: center;
+  color: red;
+`;
+
 const Login = ({isAuth, login}) => {
     const captchaUrl = useSelector(state => state.auth.captchaUrl);
+
     const handleOnSubmit = (values, actions) => {
-        console.log(values)
         login(values.email, values.password, values.rememberMe, values.captcha)
-            .then(() => {
-
-            })
-            .catch(errors => {
-
-                errors.forEach(error => {
-                    actions.setFieldError(error.field, error.error);
-                })
-
+            .catch(error => {
+                actions.setStatus(error.message)
             })
     }
 
@@ -106,19 +104,15 @@ const Login = ({isAuth, login}) => {
                             onSubmit={handleOnSubmit}>
 
                         {
-                            ({errors}) => {
-
+                            ({status}) => {
                                 return (
                                     <Form>
-
                                         <div>
                                             <Field as={StyledInput}
                                                    id="email"
                                                    name="email"
                                                    type="email"
                                                    placeholder="Email"/>
-                                            {errors.email ? <div>{errors.email}</div> : null}
-                                            <ErrorMessage name="email" />
                                         </div>
 
                                         <div>
@@ -127,8 +121,6 @@ const Login = ({isAuth, login}) => {
                                                    name="password"
                                                    type="password"
                                                    placeholder="Password"/>
-                                            {errors.password ? <div>{errors.password}</div> : null}
-                                            <ErrorMessage name="password" />
                                         </div>
 
                                         <div>
@@ -142,7 +134,6 @@ const Login = ({isAuth, login}) => {
                                         {
                                             captchaUrl &&
                                             <>
-
                                                 <img src={captchaUrl} alt="captcha"/>
                                                 <Field as={StyledInput}
                                                        id="captcha"
@@ -150,19 +141,21 @@ const Login = ({isAuth, login}) => {
                                                        type="captcha"
                                                        placeholder="Enter symbols from picture"/>
                                             </>
-
                                         }
 
                                         <FlexContainer>
                                             <StyledButton type="submit">SUBMIT</StyledButton>
                                         </FlexContainer>
-                                        {errors.general ? <div>{errors.general}</div> : null}
-                                        <ErrorMessage name="general" />
+
+                                        {
+                                            status && <StatusField>{status}</StatusField>
+                                        }
+
                                     </Form>
                                 )
                             }
 
-                            }
+                        }
 
 
                     </Formik>
