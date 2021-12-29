@@ -1,10 +1,13 @@
 import React from "react";
-import {Formik, Field, Form} from "formik";
 import {login} from "../../redux/auth-reducer";
 import {connect, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {Container, FlexContainer} from "../Styled/containers";
 import styled from "styled-components";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 
 const FormWrapper = styled.div`
   padding: 25px 25px 10px 25px;
@@ -57,7 +60,7 @@ const StyledInput = styled.input`
   font-size: 13px;
   color: darkred;
   padding: 0 5px;
-  margin: 0 0 20px 0;
+  margin: 10px 0 10px 0;
   transition: background-color 5000s ease-in-out 0s;
 
   :focus {
@@ -73,23 +76,36 @@ const StyledLabel = styled.label`
 const StyledHeading = styled.h2`
   color: #dd3e2b;
   font-weight: bold;
-  margin: 0 0 40px 0;
+  margin: 0 0 30px 0;
 `;
 
-const StatusField = styled.div`
-  text-align: center;
+const ErrorMessage = styled.p`
   color: red;
+  font-size: 12px;
 `;
+
+
+const schema = yup.object().shape({
+    email: yup.string().required("Email is required field"),
+    password: yup.string().required("Password is required field"),
+
+})
+
 
 const Login = ({isAuth, login}) => {
-    const captchaUrl = useSelector(state => state.auth.captchaUrl);
+    const {register, handleSubmit, setError, formState: {errors}} = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(schema)
+    })
 
-    const handleOnSubmit = (values, actions) => {
+    const onSubmit = (values) => {
         login(values.email, values.password, values.rememberMe, values.captcha)
-            .catch(error => {
-                actions.setStatus(error.message)
+            .catch(e => {
+                setError("serverError", {message: e.message})
             })
     }
+
+    const captchaUrl = useSelector(state => state.auth.captchaUrl);
 
     if (isAuth) {
         return <Navigate to={"/profile"}/>
@@ -100,65 +116,47 @@ const Login = ({isAuth, login}) => {
             <Container width="30%">
                 <FormWrapper>
                     <StyledHeading>LOGIN</StyledHeading>
-                    <Formik initialValues={{email: "", password: "",}}
-                            onSubmit={handleOnSubmit}>
+
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
+                        <StyledInput
+                            {...register("email")}
+                            type="email"
+                            placeholder="Email"/>
+
+                        {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+
+                        <StyledInput
+                            {...register("password")}
+                            type="password"
+                            placeholder="Password"/>
+                        {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+
+                        <input
+                            {...register("rememberMe")}
+                            type="checkbox"/>
+
+                        <StyledLabel htmlFor="password">Remember Me</StyledLabel>
+
 
                         {
-                            ({status}) => {
-                                return (
-                                    <Form>
-                                        <div>
-                                            <Field as={StyledInput}
-                                                   id="email"
-                                                   name="email"
-                                                   type="email"
-                                                   placeholder="Email"/>
-                                        </div>
-
-                                        <div>
-                                            <Field as={StyledInput}
-                                                   id="password"
-                                                   name="password"
-                                                   type="password"
-                                                   placeholder="Password"/>
-                                        </div>
-
-                                        <div>
-                                            <Field id="rememberMe"
-                                                   name="rememberMe"
-                                                   type="checkbox"/>
-
-                                            <StyledLabel htmlFor="password">Remember Me</StyledLabel>
-                                        </div>
-
-                                        {
-                                            captchaUrl &&
-                                            <>
-                                                <img src={captchaUrl} alt="captcha"/>
-                                                <Field as={StyledInput}
-                                                       id="captcha"
-                                                       name="captcha"
-                                                       type="captcha"
-                                                       placeholder="Enter symbols from picture"/>
-                                            </>
-                                        }
-
-                                        <FlexContainer>
-                                            <StyledButton type="submit">SUBMIT</StyledButton>
-                                        </FlexContainer>
-
-                                        {
-                                            status && <StatusField>{status}</StatusField>
-                                        }
-
-                                    </Form>
-                                )
-                            }
-
+                            captchaUrl &&
+                            <>
+                                <img src={captchaUrl} alt="captcha"/>
+                                <StyledInput
+                                    {...register("captcha")}
+                                    type="captcha"
+                                    placeholder="Enter symbols from picture"/>
+                                {errors.captcha && <ErrorMessage>{errors.captcha.message}</ErrorMessage>}
+                            </>
                         }
 
+                        <FlexContainer>
+                            <StyledButton type="submit">SUBMIT</StyledButton>
+                        </FlexContainer>
+                        {errors.serverError && <ErrorMessage>{errors.serverError.message}</ErrorMessage>}
+                    </form>
 
-                    </Formik>
                 </FormWrapper>
             </Container>
         </FlexContainer>

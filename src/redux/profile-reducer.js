@@ -100,6 +100,9 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
 
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId));
+    } else {
+        const errorMessages = response.data.messages
+        throw new Error(errorMessages)
     }
 };
 

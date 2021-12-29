@@ -29,9 +29,9 @@ export default authReducer;
 
 // action creators
 
-export const setAuthUserData = (userId, email, login, isAuth) => ({
+export const setAuthUserData = (userId, email, login, isAuth, captchaUrl) => ({
     type: SET_USER_DATA,
-    payload: {userId, email, login, isAuth}
+    payload: {userId, email, login, isAuth, captchaUrl}
 });
 
 export const getCaptchaUrlSuccess = captchaUrl => ({
@@ -45,7 +45,7 @@ export const getAuthUserData = () => async (dispatch) => {
 
     if (response.data.resultCode === 0) {
         let {id, email, login} = response.data.data;
-        dispatch(setAuthUserData(id, email, login, true));
+        dispatch(setAuthUserData(id, email, login, true, null));
     }
 }
 
