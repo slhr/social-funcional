@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Preloader from "../../common/Preloader";
 import {Avatar} from "../../Styled/image";
 import defaultAvatar from "../../../assets/images/default-avatar.png";
@@ -6,9 +6,11 @@ import ProfileStatus from "./Status";
 import {Container, FlexContainer} from "../../Styled/containers";
 import styled from "styled-components";
 import {BlockContainer} from "../Profile";
-import {Formik, Form, Field} from "formik";
 import {useDispatch} from "react-redux";
 import {saveProfile, setAvatarPhoto} from "../../../redux/profile-reducer";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
+import * as yup from "yup";
 
 const InfoBlock = styled.div`
   margin: 15px;
@@ -117,11 +119,48 @@ const AvatarInputLabel = styled.label`
     color: #fff;
     cursor: pointer;
   }
-`
+`;
+
+const schema = yup.object().shape({});
+
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
     const [editMode, setEditMode] = useState(false);
     const dispatch = useDispatch();
+
+    const {register, handleSubmit, setValue, setError, formState: {errors}} = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(schema)
+    })
+
+
+    const onSubmit = (values) => {
+
+        dispatch(saveProfile(values))
+        //     .catch(errors => {
+        //         console.log(errors)
+        //     });
+
+        toggleEditMode()
+    }
+
+
+    useEffect(() => {
+
+        if (profile) {
+            const fieldsToSet = {
+                fullName: profile.fullName,
+                aboutMe: profile.aboutMe,
+                lookingForAJob: profile.lookingForAJob,
+                lookingForAJobDescription: profile.lookingForAJobDescription,
+                contacts: profile.contacts,
+            }
+            for (let field in fieldsToSet) {
+                setValue(field, fieldsToSet[field])
+            }
+        }
+
+    }, [profile, setValue])
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
@@ -131,21 +170,6 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
         if (e.target.files.length) {
             dispatch(setAvatarPhoto(e.target.files[0]));
         }
-    }
-
-    const handleOnSubmit = (values, actions) => {
-        const keys = Object.keys(values);
-        keys.forEach(key => {
-            if (!values[key]) values[key] = "-";
-        })
-
-        dispatch(saveProfile(values))
-            .then(() => actions.setStatus(null))
-            .catch(errors => {
-            actions.setStatus(errors.message)
-        });
-
-        toggleEditMode()
     }
 
     if (!profile) return <Preloader/>;
@@ -215,75 +239,61 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                     }
                 </InfoBlock>
 
-                <Formik initialValues={{
-                    fullName: profile.fullName,
-                    aboutMe: profile.aboutMe,
-                    lookingForAJob: profile.lookingForAJob,
-                    lookingForAJobDescription: profile.lookingForAJobDescription,
-                    contacts: profile.contacts,
-                }}
-                        onSubmit={handleOnSubmit}>
-                    {
-                        ({status}) => {
-
-                            return (
-                                <Form autoComplete="off">
+                <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
 
 
-                                    <InfoBlock borderBottom>
-                                        <GridContainer>
-                                            <InfoItem field>AboutMe:</InfoItem>
-                                            <InfoItem>{editMode ? <Field as={InputItem} type="text" name="aboutMe"
-                                                                         id="aboutMe"/> : profile.aboutMe || "-"}</InfoItem>
-                                        </GridContainer>
+                    <InfoBlock borderBottom>
+                        <GridContainer>
+                            <InfoItem field>AboutMe:</InfoItem>
+                            <InfoItem>{
+                                editMode
+                                    ? <InputItem {...register("aboutMe")} type="text"/>
+                                    : profile.aboutMe || "-"
+                            }</InfoItem>
+                        </GridContainer>
 
-                                        <GridContainer>
-                                            <InfoItem field>Looking for a job:</InfoItem>
-                                            <InfoItem>{editMode ?
-                                                <Field type="checkbox" name="lookingForAJob"
-                                                       id="lookingForAJob"/> : profile.lookingForAJob ? "yes" : "no"}</InfoItem>
-                                        </GridContainer>
+                        <GridContainer>
+                            <InfoItem field>Looking for a job:</InfoItem>
+                            <InfoItem>{
+                                editMode
+                                    ? <input type="checkbox" {...register("lookingForAJob")}/>
+                                    : profile.lookingForAJob ? "yes" : "no"}</InfoItem>
+                        </GridContainer>
 
-                                        <GridContainer>
-                                            <InfoItem field>Skills:</InfoItem>
-                                            <InfoItem>{editMode ?
-                                                <Field as={InputItem} type="text" name="lookingForAJobDescription"
-                                                       id="lookingForAJobDescription"/> : profile.lookingForAJobDescription || "-"}</InfoItem>
-                                        </GridContainer>
-                                    </InfoBlock>
+                        <GridContainer>
+                            <InfoItem field>Skills:</InfoItem>
+                            <InfoItem>{
+                                editMode
+                                    ? <InputItem type="text" {...register("lookingForAJobDescription")}/>
+                                    : profile.lookingForAJobDescription || "-"}</InfoItem>
+                        </GridContainer>
+                    </InfoBlock>
 
-                                    <InfoBlock>
-                                        <InfoBlockHeader>Contact info</InfoBlockHeader>
-                                        {
-                                            Object.keys(profile.contacts).map(key => {
-                                                return (
-                                                    <GridContainer key={key}>
-                                                        <InfoItem field>{key}:</InfoItem>
-                                                        <InfoItem>{editMode ?
-                                                            <Field as={InputItem} type="text" name={`contacts.${key}`}
-                                                                   id={`contacts.${key}`}/> : profile.contacts[key] || "-"}</InfoItem>
-                                                    </GridContainer>);
-                                            })
-                                        }
-                                        <GridContainer>
-                                            <div/>
-                                            <InfoItem> {editMode &&
-                                                <ProfileButton type="submit">Save</ProfileButton>}</InfoItem>
-                                        </GridContainer>
-                                        {
-                                            status &&
-                                                status.split(",").map((message) => {
-                                                    return <div>{message}</div>
-                                                })
-                                        }
-                                    </InfoBlock>
-
-                                </Form>
-                            );
+                    <InfoBlock>
+                        <InfoBlockHeader>Contact info</InfoBlockHeader>
+                        {
+                            Object.keys(profile.contacts).map(key => {
+                                return (
+                                    <GridContainer key={key}>
+                                        <InfoItem field>{key}:</InfoItem>
+                                        <InfoItem>{
+                                            editMode
+                                                ? <InputItem type="text" {...register(`contacts.${key}`)}/>
+                                                : profile.contacts[key] || "-"}
+                                        </InfoItem>
+                                    </GridContainer>);
+                            })
                         }
-                    }
+                        <GridContainer>
+                            <div/>
+                            <InfoItem> {editMode &&
+                                <ProfileButton type="submit">Save</ProfileButton>}</InfoItem>
+                        </GridContainer>
 
-                </Formik>
+                    </InfoBlock>
+
+                </form>
+
             </Container>
         </BlockContainer>
     );

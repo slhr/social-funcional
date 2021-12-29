@@ -89,7 +89,7 @@ const schema = yup.object().shape({
     email: yup.string().required("Email is required field"),
     password: yup.string().required("Password is required field"),
 
-})
+});
 
 
 const Login = ({isAuth, login}) => {
