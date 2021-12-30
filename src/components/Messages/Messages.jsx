@@ -43,7 +43,7 @@ const OnlineStatus = styled.p`
 const Messages = () => {
 
     const userId = useSelector(state => state.auth.userId);
-    if (!userId) return <Navigate to={"/login"} />
+    if (!userId) return <Navigate to={"/login"}/>;
     return (
         <DialogsContainer>
             <Header>Messages</Header>
@@ -54,13 +54,12 @@ const Messages = () => {
                     <OnlineStatus>Online</OnlineStatus>
                 </StatusBlock>
             </StatusHeader>
-            <Dialogs />
-            <DialogWindow />
+            <Dialogs/>
+            <DialogWindow/>
 
         </DialogsContainer>
     );
 };
-
 
 
 export default Messages;

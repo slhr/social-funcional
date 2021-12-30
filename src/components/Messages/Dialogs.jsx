@@ -32,7 +32,7 @@ const DialogsList = styled.ul`
   overflow: scroll;
   overflow-x: hidden;
 
-`
+`;
 
 const DialogItem = styled.li`
   width: 100%;
@@ -42,7 +42,7 @@ const DialogItem = styled.li`
   display: flex;
 
   background-color: ${props => props.active ? "#EFEFEF" : "transparent"};
-  
+
 
   :hover {
     background-color: #EFEFEF;
@@ -81,6 +81,6 @@ const Dialogs = () => {
             }
         </DialogsList>
     );
-}
+};
 
 export default Dialogs;

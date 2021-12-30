@@ -8,18 +8,18 @@ const RouterWrapper = styled.div`
   grid-area: c;
   background-color: #f2f2f2;
   margin: 0 0 0 25px;
-`
+`;
 
 const AppRouter = () => {
     return (
         <RouterWrapper>
             <Routes>
-                <Route path="/profile" element={<Profile />}>
-                    <Route path=":userId" element={<Profile />}/>
+                <Route path="/profile" element={<Profile/>}>
+                    <Route path=":userId" element={<Profile/>}/>
                 </Route>
 
-                { routes.map(route => <Route {...route} key={route.path}/>) }
-                <Route path="/" element={<Navigate to="/login" />}/>
+                {routes.map(route => <Route {...route} key={route.path}/>)}
+                <Route path="/" element={<Navigate to="/login"/>}/>
             </Routes>
         </RouterWrapper>
     );

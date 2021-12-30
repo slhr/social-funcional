@@ -8,8 +8,7 @@ export const HeaderPanel = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
-
+`;
 
 
 export const MenuButton = styled.button`
@@ -23,7 +22,7 @@ export const MenuButton = styled.button`
   justify-content: center;
   color: #fff;
   font-weight: bold;
-  
+
   a {
     text-decoration: none;
     display: block;
@@ -32,19 +31,19 @@ export const MenuButton = styled.button`
     color: #fff;
     font-weight: bold;
   }
-`
+`;
 export const StyledList = styled.div`
   width: 150px;
   background-color: #fff;
   list-style-type: none;
   position: absolute;
   box-shadow: 1px 1px 5px #ccc;
-`
+`;
 
 export const MenuBlock = styled.ul`
   position: relative;
   z-index: 5;
-`
+`;
 
 export const StyledLI = styled.li`
   padding: 10px 5px;
@@ -52,6 +51,7 @@ export const StyledLI = styled.li`
   cursor: pointer;
   display: flex;
   align-items: center;
+
   :hover {
     color: #dd3e2b;
   }
@@ -66,5 +66,5 @@ export const StyledLI = styled.li`
   a:hover {
     color: #dd3e2b;
   }
-`
+`;
 

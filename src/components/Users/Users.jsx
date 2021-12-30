@@ -8,8 +8,6 @@ import User from "./User";
 import Paginator from "./Paginator";
 
 
-
-
 const Users = ({
                    users, totalUsersCount, currentPage, pageSize, requestUsers,
                    follow, unfollow, followingInProgress, isFetching
@@ -17,7 +15,7 @@ const Users = ({
 
     const onPageChanged = pageNumber => {
         requestUsers(pageNumber, pageSize);
-    }
+    };
 
     useEffect(() => {
         requestUsers(currentPage, pageSize);
@@ -25,39 +23,38 @@ const Users = ({
 
     return (
 
-            <>
-                {
-                    isFetching
-                        ? <Preloader />
-                        : null
-                }
+        <>
+            {
+                isFetching
+                    ? <Preloader/>
+                    : null
+            }
 
-                {
-                    <div>
+            {
+                <div>
 
-                        <Paginator currentPage={currentPage}
-                                   onPageChanged={onPageChanged}
-                                   totalUsersCount={totalUsersCount}
-                                   pageSize={pageSize}/>
+                    <Paginator currentPage={currentPage}
+                               onPageChanged={onPageChanged}
+                               totalUsersCount={totalUsersCount}
+                               pageSize={pageSize}/>
 
-                        {
-                            !isFetching &&
+                    {
+                        !isFetching &&
 
-                            <FlexContainer width="100%" flexWrap="wrap" justify="space-between">
-                                {
-                                    users.map(u => <User key={u.id}
-                                                         user={u}
-                                                         followingInProgress={followingInProgress}
-                                                         unfollow={unfollow}
-                                                         follow={follow}/>
-                                    )
-                                }
-                            </FlexContainer>
-                        }
-                    </div>
-                }
-            </>
-
+                        <FlexContainer width="100%" flexWrap="wrap" justify="space-between">
+                            {
+                                users.map(u => <User key={u.id}
+                                                     user={u}
+                                                     followingInProgress={followingInProgress}
+                                                     unfollow={unfollow}
+                                                     follow={follow}/>
+                                )
+                            }
+                        </FlexContainer>
+                    }
+                </div>
+            }
+        </>
 
 
     );

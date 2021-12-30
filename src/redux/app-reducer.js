@@ -6,7 +6,7 @@ const SET_INITIALIZED_SUCCESS = "app-reducer/SET_INITIALIZED_SUCCESS";
 
 const initialState = {
     initialized: false
-}
+};
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -14,11 +14,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 initialized: true,
-            }
+            };
         default:
             return state;
     }
-}
+};
 
 export default appReducer;
 
@@ -35,5 +35,5 @@ export const initializeApp = () => {
         promise.then(() => {
             dispatch(initializedSuccess());
         });
-    }
-}
+    };
+};

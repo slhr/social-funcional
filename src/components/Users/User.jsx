@@ -22,17 +22,17 @@ const ViewProfileLink = styled(NavLink)`
   font-size: 16px;
   font-weight: 500;
   padding: 18px 0;
-`
+`;
 
 const UserName = styled.h2`
   font-size: 18px;
   margin: 10px 0;
-  
+
   -webkit-line-clamp: 1;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
-`
+`;
 
 const UserStatus = styled.span`
   display: inline-block;
@@ -41,20 +41,20 @@ const UserStatus = styled.span`
   color: #6c757d;
   padding: 5px 10px 10px 15px;
   height: 20px;
-  
-  
-  -webkit-line-clamp: 1; 
+
+
+  -webkit-line-clamp: 1;
   display: -webkit-box;
   word-wrap: anywhere;
   -webkit-box-orient: vertical;
   overflow: hidden;
-`
+`;
 
 const FollowingButton = styled.button`
   margin: 15px;
   padding: 5px 15px;
   border: none;
-  
+
   width: 80px;
   height: 35px;
   background-color: #28a745;
@@ -75,7 +75,7 @@ const FollowingButton = styled.button`
     background-color: #dd3e2b;
     color: #fff;
   }
-  
+
 `;
 
 const User = ({user, followingInProgress, unfollow, follow}) => {
@@ -84,9 +84,8 @@ const User = ({user, followingInProgress, unfollow, follow}) => {
             <div>
 
 
-                    <Avatar width="100px" src={user.photos.small || defaultAvatar} alt="ava"/>
+                <Avatar width="100px" src={user.photos.small || defaultAvatar} alt="ava"/>
 
-            
 
                 <UserName>{user.name}</UserName>
 
@@ -96,13 +95,13 @@ const User = ({user, followingInProgress, unfollow, follow}) => {
                     {
                         user.followed
                             ? <FollowingButton disabled={followingInProgress.some(id => id === user.id)}
-                                      onClick={() => {
-                                          unfollow(user.id)
-                                      }}>Unfollow</FollowingButton>
+                                               onClick={() => {
+                                                   unfollow(user.id);
+                                               }}>Unfollow</FollowingButton>
                             : <FollowingButton disabled={followingInProgress.some(id => id === user.id)}
-                                      onClick={() => {
-                                          follow(user.id)
-                                      }}>Follow</FollowingButton>
+                                               onClick={() => {
+                                                   follow(user.id);
+                                               }}>Follow</FollowingButton>
                     }
                 </div>
 
@@ -117,6 +116,6 @@ const User = ({user, followingInProgress, unfollow, follow}) => {
         </UserContainer>
     );
 
-}
+};
 
 export default User;

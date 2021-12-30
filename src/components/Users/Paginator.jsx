@@ -5,7 +5,7 @@ import styled from "styled-components";
 const PaginatorContainer = styled(Container)`
   padding: 10px;
   text-align: center;
-`
+`;
 
 const NavigationButton = styled.button`
   padding: 5px 15px;
@@ -53,7 +53,7 @@ const PageNumberFrame = styled.span`
 
 const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, portionSize = 3}) => {
 
-    const pagesCount = Math.ceil(totalUsersCount / pageSize)
+    const pagesCount = Math.ceil(totalUsersCount / pageSize);
     const pages = [];
 
     for (let i = 1; i <= pagesCount; i++) {
@@ -69,16 +69,16 @@ const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, porti
 
     const setPreviousPortion = () => {
         if (portionNumber > 1) {
-            setPortionNumber(portionNumber - 1)
+            setPortionNumber(portionNumber - 1);
         }
-    }
+    };
 
     const setNextPortion = () => {
         if (portionCount > portionNumber) {
-            setPortionNumber(portionNumber + 1)
+            setPortionNumber(portionNumber + 1);
 
         }
-    }
+    };
 
     return (
 
@@ -105,10 +105,10 @@ const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, porti
                                                 isActive={p === currentPage}
                                                 onClick={() => {
                                                     if (p !== currentPage) {
-                                                        onPageChanged(p)
+                                                        onPageChanged(p);
                                                     }
                                                 }
-                                                }>{p}</PageNumberFrame>
+                                                }>{p}</PageNumberFrame>;
                     })
             }
             <NavigationButton onClick={setNextPortion}>next</NavigationButton>
@@ -116,7 +116,7 @@ const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, porti
 
         </PaginatorContainer>
 
-    )
-}
+    );
+};
 
 export default Paginator;

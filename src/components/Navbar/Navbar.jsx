@@ -15,7 +15,7 @@ const NavbarWrapper = styled.nav`
   grid-area: n;
   background-color: #fff;
   box-shadow: 1px 1px 5px #ccc;
-`
+`;
 
 const LinkWrapper = styled.div`
   padding: 10px 15px;
@@ -26,11 +26,11 @@ const LinkWrapper = styled.div`
   a:hover {
     color: #dd3e2b;
   }
-`
+`;
 
 const Navbar = () => {
 
-    const classes = ({isActive}) => (isActive ? `${styles.link} ${styles.activeLink}` : styles.link)
+    const classes = ({isActive}) => (isActive ? `${styles.link} ${styles.activeLink}` : styles.link);
 
     return (
         <div>

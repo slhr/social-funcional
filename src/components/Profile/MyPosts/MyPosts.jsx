@@ -15,7 +15,7 @@ const PostsHeaderContainer = styled(Container)`
 
 const AddPostButton = styled.button`
   width: 25px;
-  
+
   background-color: #E44D3A;
   color: #fff;
   border: 2px solid #dd3e2b;
@@ -37,7 +37,7 @@ const MyPosts = ({isOwner, isAuthorized}) => {
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
-    }
+    };
 
     return (
         <div>
@@ -60,7 +60,7 @@ const MyPosts = ({isOwner, isAuthorized}) => {
             </>
         </div>
     );
-}
+};
 
 
 export default MyPosts;

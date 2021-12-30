@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import logo from "../../assets/images/logo.png"
+import logo from "../../assets/images/logo.png";
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {logout} from "../../redux/auth-reducer";
@@ -32,16 +32,16 @@ const Menu = ({email, logout}) => {
 
     const openMenu = () => {
         setIsOpen(true);
-    }
+    };
 
     const closeMenu = () => {
         setIsOpen(false);
-    }
+    };
 
     const quit = () => {
         logout();
         closeMenu();
-    }
+    };
     return (
         <MenuBlock>
             <MenuButton onClick={isOpen ? closeMenu : openMenu}>

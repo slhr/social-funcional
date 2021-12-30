@@ -19,7 +19,7 @@ const AppWrapper = styled.div`
     "h h"
     "n c";
   min-height: 100vh;
-`
+`;
 
 
 const App = ({initialized, initializeApp}) => {
@@ -28,7 +28,7 @@ const App = ({initialized, initializeApp}) => {
         initializeApp();
     }, [initializeApp]);
 
-    if (!initialized) return <Preloader/>
+    if (!initialized) return <Preloader/>;
 
     return (
         <AppWrapper>
@@ -41,7 +41,7 @@ const App = ({initialized, initializeApp}) => {
 
 const mapStateToProps = state => ({
     initialized: state.app.initialized,
-})
+});
 
 export default connect(mapStateToProps, {initializeApp})(App);
 

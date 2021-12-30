@@ -34,7 +34,7 @@ const FriendsFrame = styled.div`
 
   justify-content: stretch;
   text-align: center;
-`
+`;
 
 const FriendsHeader = styled.h3`
   padding: 0 5px 10px 5px;
@@ -55,7 +55,7 @@ const Friends = ({isOwner, isAuthorized}) => {
                                     <FriendsFrame>
                                         {
                                             initialFriends.map(friend => {
-                                                return <Friend key={friend.id} {...friend}/>
+                                                return <Friend key={friend.id} {...friend}/>;
                                             })
                                         }
                                     </FriendsFrame>
@@ -70,7 +70,7 @@ const Friends = ({isOwner, isAuthorized}) => {
                                     <FriendsFrame>
                                         {
                                             initialMutualFriends.map(friend => {
-                                                return <Friend key={friend.id} {...friend}/>
+                                                return <Friend key={friend.id} {...friend}/>;
                                             })
                                         }
                                     </FriendsFrame>
@@ -87,7 +87,7 @@ const Friends = ({isOwner, isAuthorized}) => {
                                         <FriendsFrame>
                                             {
                                                 initialMutualFriends.map(friend => {
-                                                    return <Friend key={friend.id} {...friend}/>
+                                                    return <Friend key={friend.id} {...friend}/>;
                                                 })
                                             }
                                         </FriendsFrame>
@@ -102,7 +102,7 @@ const Friends = ({isOwner, isAuthorized}) => {
                                     <FriendsFrame>
                                         {
                                             initialFriends.map(friend => {
-                                                return <Friend key={friend.id} {...friend}/>
+                                                return <Friend key={friend.id} {...friend}/>;
                                             })
                                         }
                                     </FriendsFrame>

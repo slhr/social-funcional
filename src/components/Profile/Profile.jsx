@@ -30,7 +30,7 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
 
     }, [getStatus, getUserProfile, userId]);
 
-    if (!userId) return <Navigate to={"/login"}/>
+    if (!userId) return <Navigate to={"/login"}/>;
     return (
         <div>
             <ProfileInfo profile={profile}
@@ -39,7 +39,7 @@ const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, 
                          isOwner={isOwner}
                          isAuthorized={isAuthorized}/>
             <BlockContainer>
-                <Friends isOwner={isOwner}  isAuthorized={isAuthorized}/>
+                <Friends isOwner={isOwner} isAuthorized={isAuthorized}/>
                 <MyPosts isOwner={isOwner} isAuthorized={isAuthorized}/>
             </BlockContainer>
         </div>)

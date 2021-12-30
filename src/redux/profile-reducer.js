@@ -14,51 +14,50 @@ const initialState = {
         {id: 2, message: "It's my second post", elapsedTimePost: "2 days ago", likesCount: 17, viewsCount: 41},
         {id: 3, message: "It's my third post", elapsedTimePost: "1 day ago", likesCount: 5, viewsCount: 15},
     ],
-}
+};
 
 
 const profileReducer = (state = initialState, action) => {
-        switch (action.type) {
+    switch (action.type) {
 
-            case ADD_POST: {
-                const newPost = {
-                    id: state.posts.length + 1,
-                    message: action.newPostText,
-                    elapsedTimePost: "just now",
-                    likesCount: 0,
-                    viewsCount: 0
-                }
-                return {
-                    ...state,
-                    posts: [...state.posts, newPost]
-                };
-            }
-
-            case SET_USER_PROFILE: {
-                return {
-                    ...state,
-                    profile: action.profile
-                };
-            }
-
-            case SET_STATUS:
-                return {
-                    ...state,
-                    status: action.status
-                };
-            case SAVE_PHOTO_SUCCESS:
-                return {
-                    ...state,
-                    profile: {
-                        ...state.profile,
-                        photos: action.photos
-                    }
-                }
-            default:
-                return state;
+        case ADD_POST: {
+            const newPost = {
+                id: state.posts.length + 1,
+                message: action.newPostText,
+                elapsedTimePost: "just now",
+                likesCount: 0,
+                viewsCount: 0
+            };
+            return {
+                ...state,
+                posts: [...state.posts, newPost]
+            };
         }
+
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: action.profile
+            };
+        }
+
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            };
+        case SAVE_PHOTO_SUCCESS:
+            return {
+                ...state,
+                profile: {
+                    ...state.profile,
+                    photos: action.photos
+                }
+            };
+        default:
+            return state;
     }
-;
+};
 
 export default profileReducer;
 
@@ -101,8 +100,8 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(userId));
     } else {
-        const errorMessages = response.data.messages
-        throw new Error(errorMessages)
+        const errorMessages = response.data.messages;
+        throw new Error(errorMessages);
     }
 };
 
@@ -112,4 +111,4 @@ export const setAvatarPhoto = (file) => async (dispatch) => {
     if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos));
     }
-}
+};

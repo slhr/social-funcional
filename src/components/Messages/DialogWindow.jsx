@@ -64,7 +64,6 @@ const MessageSendButton = styled.button`
 `;
 
 
-
 const DialogWindow = () => {
     const messages = useSelector(state => state.messenger.messages);
     const dispatch = useDispatch();
@@ -73,20 +72,20 @@ const DialogWindow = () => {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({block: "start", behavior: "smooth"})
-    }
+        messagesEndRef.current.scrollIntoView({block: "start", behavior: "smooth"});
+    };
 
 
     const handleOnSubmit = (values, {resetForm}) => {
         if (values.messageText) {
             dispatch(addMessageCreator(values.messageText));
-            resetForm()
+            resetForm();
         }
-    }
+    };
 
     useEffect(() => {
-        scrollToBottom()
-    }, [messages])
+        scrollToBottom();
+    }, [messages]);
 
 
     return (
@@ -99,7 +98,7 @@ const DialogWindow = () => {
                                         text={message.text}
                                         isInput={message.isInput}
 
-                        />
+                        />;
                     })
                 }
                 <div style={{float: "left"}} ref={messagesEndRef}/>
@@ -130,6 +129,6 @@ const DialogWindow = () => {
         </DialogWindowContainer>
 
     );
-}
+};
 
 export default DialogWindow;

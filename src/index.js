@@ -17,7 +17,7 @@ const Global = createGlobalStyle`
   body {
     background-color: #f2f2f2;
   }
-  
+
   *::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -37,7 +37,7 @@ const Global = createGlobalStyle`
 
   *::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(left, #8391A6, #536175);
-    
+
   }
 `;
 

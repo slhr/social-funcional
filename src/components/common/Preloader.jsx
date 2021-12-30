@@ -1,7 +1,7 @@
 import React from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 
-import preloader from "../../assets/images/preloader.gif"
+import preloader from "../../assets/images/preloader.gif";
 
 const Wrapper = styled.div`
   position: absolute;
@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledPreloader = styled.img`
-    width: 80px;
+  width: 80px;
 `;
 
 const Preloader = () => {

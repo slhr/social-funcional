@@ -8,7 +8,7 @@ const StyledMessage = styled.div`
   float: ${props => props.isInput ? "left" : "right"};
   font-size: 14px;
   clear: both;
-  
+
   span {
     margin: 5px 15px;
     padding: 15px;
@@ -18,7 +18,7 @@ const StyledMessage = styled.div`
     max-width: 350px;
     border-radius: 10px;
   }
-  
+
   div {
     display: flex;
     align-items: center;
@@ -41,6 +41,6 @@ const Message = ({isInput, text}) => {
             }
         </StyledMessage>
     );
-}
+};
 
 export default Message;

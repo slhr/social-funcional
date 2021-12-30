@@ -96,19 +96,19 @@ const Login = ({isAuth, login}) => {
     const {register, handleSubmit, setError, formState: {errors}} = useForm({
         mode: "onBlur",
         resolver: yupResolver(schema)
-    })
+    });
 
     const onSubmit = (values) => {
         login(values.email, values.password, values.rememberMe, values.captcha)
             .catch(e => {
-                setError("serverError", {message: e.message})
-            })
-    }
+                setError("serverError", {message: e.message});
+            });
+    };
 
     const captchaUrl = useSelector(state => state.auth.captchaUrl);
 
     if (isAuth) {
-        return <Navigate to={"/profile"}/>
+        return <Navigate to={"/profile"}/>;
     }
 
     return (
@@ -165,6 +165,6 @@ const Login = ({isAuth, login}) => {
 
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
-})
+});
 
 export default connect(mapStateToProps, {login})(Login);

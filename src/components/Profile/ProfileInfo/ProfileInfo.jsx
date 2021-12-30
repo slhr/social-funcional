@@ -52,7 +52,7 @@ const InputItem = styled.input`
   border: none;
   outline: none;
 
-`
+`;
 
 
 const Rectangle = styled.div`
@@ -60,13 +60,13 @@ const Rectangle = styled.div`
   height: 125px;
   background-color: #dd3e2b;
   position: absolute;
-`
+`;
 
 const AvatarBlock = styled.div`
   position: relative;
   padding: 10px 10px;
   text-align: center;
-`
+`;
 
 const Wrapper = styled.div`
   margin-right: 25px;
@@ -136,18 +136,18 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
     const {register, handleSubmit, setValue, setError, formState: {errors}} = useForm({
         mode: "onBlur",
         resolver: yupResolver(schema)
-    })
+    });
 
 
     const onSubmit = (values) => {
         dispatch(saveProfile(values))
             .then(() => {
-                toggleEditMode()
+                toggleEditMode();
             })
             .catch(e => {
-                setError("serverError", {message: e.message})
+                setError("serverError", {message: e.message});
             });
-    }
+    };
 
     useEffect(() => {
         if (profile) {
@@ -157,23 +157,23 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                 lookingForAJob: profile.lookingForAJob,
                 lookingForAJobDescription: profile.lookingForAJobDescription,
                 contacts: {...profile.contacts},
-            }
+            };
             for (let field in fieldsToSet) {
-                setValue(field, fieldsToSet[field])
+                setValue(field, fieldsToSet[field]);
             }
         }
 
-    }, [profile, setValue])
+    }, [profile, setValue]);
 
     const toggleEditMode = () => {
         setEditMode(!editMode);
-    }
+    };
 
     const changeAvatar = (e) => {
         if (e.target.files.length) {
             dispatch(setAvatarPhoto(e.target.files[0]));
         }
-    }
+    };
 
     if (!profile) return <Preloader/>;
 
@@ -293,7 +293,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                                 {
                                     editMode &&
                                     errors.serverError && errors.serverError.message.split(",").map(message => {
-                                        return <ErrorMessage key={message}>{message}</ErrorMessage>
+                                        return <ErrorMessage key={message}>{message}</ErrorMessage>;
                                     })
                                 }
                             </div>
@@ -303,6 +303,6 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
             </Container>
         </BlockContainer>
     );
-}
+};
 
 export default ProfileInfo;

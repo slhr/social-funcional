@@ -1,5 +1,5 @@
 import React from "react";
-import defaultAvatar from "../../../assets/images/default-avatar.png"
+import defaultAvatar from "../../../assets/images/default-avatar.png";
 import {Avatar} from "../../Styled/image";
 import styled from "styled-components";
 

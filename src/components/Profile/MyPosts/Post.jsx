@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Icon} from "../../Styled/image";
-import defaultAvatar from "../../../assets/images/default-avatar.png"
+import defaultAvatar from "../../../assets/images/default-avatar.png";
 import styled from "styled-components";
 import {Container, IconBlock} from "../../Styled/containers";
 import menuIcon from "../../../assets/images/menu.png";
@@ -76,7 +76,7 @@ const Post = ({isAuthorized, message, likesCount, viewsCount, elapsedTimePost}) 
     const fullName = useSelector(state => state.profile?.profile?.fullName);
 
     const [likesNumber, setLikesNumber] = useState(likesCount);
-    const [isLiked, setIsLiked] = useState(false)
+    const [isLiked, setIsLiked] = useState(false);
 
     const likeToggle = () => {
         if (isAuthorized && !isLiked) {
@@ -86,7 +86,7 @@ const Post = ({isAuthorized, message, likesCount, viewsCount, elapsedTimePost}) 
             setLikesNumber(likesNumber - 1);
             setIsLiked(false);
         }
-    }
+    };
 
     return (
         <PostContainer>
@@ -125,7 +125,7 @@ const Post = ({isAuthorized, message, likesCount, viewsCount, elapsedTimePost}) 
             </FooterBlock>
         </PostContainer>
     );
-}
+};
 
 const PostInput = styled.textarea`
   resize: none;
@@ -163,13 +163,13 @@ const PostSendButton = styled.button`
 `;
 
 const Div = styled.div`
-  
+
   display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 0 0 0 65px;
   text-align: right;
-`
+`;
 
 export const PostCreateForm = ({toggleEditMode}) => {
     const avatarPath = useSelector(state => state.profile?.profile?.photos?.large || defaultAvatar);
@@ -178,7 +178,7 @@ export const PostCreateForm = ({toggleEditMode}) => {
 
     const handleOnSubmit = (values) => {
         dispatch(addPostCreator(values.postText));
-        toggleEditMode()
+        toggleEditMode();
     };
 
     return (
@@ -210,7 +210,7 @@ export const PostCreateForm = ({toggleEditMode}) => {
             </Formik>
 
         </PostContainer>
-    )
-}
+    );
+};
 
 export default Post;

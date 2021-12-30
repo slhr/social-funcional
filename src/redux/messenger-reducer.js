@@ -1,6 +1,6 @@
 import defaultAvatar from "../assets/images/default-avatar.png";
 
-const ADD_MESSAGE = "messenger-reducer/ADD_MESSAGE"
+const ADD_MESSAGE = "messenger-reducer/ADD_MESSAGE";
 
 const initialState = {
     messages: [
@@ -21,7 +21,7 @@ const initialState = {
         {id: 9, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "4 days ago"},
         {id: 10, avatar: defaultAvatar, fullName: "John Doe", lastMessage: "any message", lastMessageSendTime: "a week ago"},
     ],
-}
+};
 
 const messengerReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -36,12 +36,12 @@ const messengerReducer = (state = initialState, action) => {
                         text: action.message
                     }
                 ]
-            }
+            };
 
         default:
             return state;
     }
-}
+};
 
 
 export default messengerReducer;

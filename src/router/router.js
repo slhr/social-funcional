@@ -5,12 +5,12 @@ import Messages from "../components/Messages/Messages";
 
 const routes = [
 
-    {path: "/dialogs", element: <Messages />},
-    {path: "/users", element: <Users />},
-    {path: "/login", element: <Login />},
-    {path: "/news", element: <InDev />},
-    {path: "/music", element: <InDev />},
-    {path: "/settings", element: <InDev />},
+    {path: "/dialogs", element: <Messages/>},
+    {path: "/users", element: <Users/>},
+    {path: "/login", element: <Login/>},
+    {path: "/news", element: <InDev/>},
+    {path: "/music", element: <InDev/>},
+    {path: "/settings", element: <InDev/>},
 
 ];
 

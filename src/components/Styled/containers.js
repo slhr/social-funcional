@@ -6,15 +6,15 @@ export const Container = styled.div`
   box-shadow: 1px 1px 5px #ccc;
   width: ${props => props.width || "100%"};
   background-color: #fff;
-  
-`
+
+`;
 
 export const FlexContainer = styled.div`
   display: flex;
   flex-wrap: ${props => props.flexWrap || "wrap"};
   width: ${props => props.width || "100%"};
   justify-content: ${props => props.justify || "center"};
-`
+`;
 
 
 export const IconBlock = styled.div`
