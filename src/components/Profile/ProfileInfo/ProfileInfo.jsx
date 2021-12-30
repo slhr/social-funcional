@@ -121,6 +121,11 @@ const AvatarInputLabel = styled.label`
   }
 `;
 
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 12px;
+`;
+
 const schema = yup.object().shape({});
 
 
@@ -135,25 +140,23 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
 
 
     const onSubmit = (values) => {
-
         dispatch(saveProfile(values))
-        //     .catch(errors => {
-        //         console.log(errors)
-        //     });
-
-        toggleEditMode()
+            .then(() => {
+                toggleEditMode()
+            })
+            .catch(e => {
+                setError("serverError", {message: e.message})
+            });
     }
 
-
     useEffect(() => {
-
         if (profile) {
             const fieldsToSet = {
                 fullName: profile.fullName,
                 aboutMe: profile.aboutMe,
                 lookingForAJob: profile.lookingForAJob,
                 lookingForAJobDescription: profile.lookingForAJobDescription,
-                contacts: profile.contacts,
+                contacts: {...profile.contacts},
             }
             for (let field in fieldsToSet) {
                 setValue(field, fieldsToSet[field])
@@ -176,16 +179,13 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
 
     return (
         <BlockContainer>
-
             <Wrapper>
                 <Container>
                     <Rectangle/>
                     <AvatarBlock>
-
                         <Avatar bordered width="220px"
                                 src={profile.photos.large || defaultAvatar}
                                 alt=""/>
-
                         {
                             isOwner &&
                             <>
@@ -193,21 +193,19 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                                 <AvatarInputLabel htmlFor="avatarUpload">Upload avatar</AvatarInputLabel>
                             </>
                         }
-
-
                     </AvatarBlock>
                 </Container>
 
                 <Container>
                     <AvatarBlock>
-                        <div>Following</div>
+                        <div>Friends</div>
                         <div>55</div>
                     </AvatarBlock>
                 </Container>
 
                 <Container>
                     <AvatarBlock>
-                        <div>Followers</div>
+                        <div>Subscriptions</div>
                         <div>42</div>
                     </AvatarBlock>
                 </Container>
@@ -261,7 +259,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                         </GridContainer>
 
                         <GridContainer>
-                            <InfoItem field>Skills:</InfoItem>
+                            <InfoItem field>Description:</InfoItem>
                             <InfoItem>{
                                 editMode
                                     ? <InputItem type="text" {...register("lookingForAJobDescription")}/>
@@ -289,11 +287,19 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                             <InfoItem> {editMode &&
                                 <ProfileButton type="submit">Save</ProfileButton>}</InfoItem>
                         </GridContainer>
-
+                        <GridContainer>
+                            <div/>
+                            <div>
+                                {
+                                    editMode &&
+                                    errors.serverError && errors.serverError.message.split(",").map(message => {
+                                        return <ErrorMessage key={message}>{message}</ErrorMessage>
+                                    })
+                                }
+                            </div>
+                        </GridContainer>
                     </InfoBlock>
-
                 </form>
-
             </Container>
         </BlockContainer>
     );
