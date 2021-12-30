@@ -4,15 +4,15 @@ import styled from "styled-components";
 import routes from "../router/router";
 import Profile from "./Profile/Profile";
 
-const RouterWrapper = styled.div`
+const Wrapper = styled.div`
   grid-area: c;
   background-color: #f2f2f2;
-  margin: 0 0 0 25px;
+  margin-left: 25px;
 `;
 
-const AppRouter = () => {
+const MainContent = () => {
     return (
-        <RouterWrapper>
+        <Wrapper>
             <Routes>
                 <Route path="/profile" element={<Profile/>}>
                     <Route path=":userId" element={<Profile/>}/>
@@ -21,8 +21,8 @@ const AppRouter = () => {
                 {routes.map(route => <Route {...route} key={route.path}/>)}
                 <Route path="/" element={<Navigate to="/login"/>}/>
             </Routes>
-        </RouterWrapper>
+        </Wrapper>
     );
 };
 
-export default AppRouter;
+export default MainContent;

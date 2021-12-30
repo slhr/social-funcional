@@ -1,80 +1,40 @@
-import React, {useState} from "react";
+import React from "react";
 import logo from "../../assets/images/logo.png";
 import {NavLink} from "react-router-dom";
-import {connect} from "react-redux";
-import {logout} from "../../redux/auth-reducer";
-import arrowIcon from "../../assets/images/arrow-bottom.png";
-import settingsIcon from "../../assets/images/settings.png";
-import logoutIcon from "../../assets/images/logout.png";
-import {Icon, Logo50} from "../Styled/image";
-import {HeaderPanel, MenuBlock, MenuButton, StyledLI, StyledList} from "./Styled";
+import {useSelector} from "react-redux";
+import {Logo} from "../Styled/image";
+import Menu, {MenuButton} from "./Menu";
+import styled from "styled-components";
 
-const Header = ({isAuth, email, logout}) => {
+
+export const Wrapper = styled.div`
+  grid-area: h;
+  background-color: #e44d3a;
+  padding: 0 0 0 10px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+
+const Header = () => {
+    const isAuth = useSelector(state => state.auth.isAuth);
+
     return (
-        <HeaderPanel>
-            <Logo50 src={logo} alt="logo"/>
+        <Wrapper>
+            <Logo src={logo} alt="logo"/>
             <div>
                 {
                     isAuth
-                        ? <Menu email={email} logout={logout}/>
+                        ? <Menu/>
                         : <MenuButton>
                             <NavLink to="/login">Login</NavLink>
                         </MenuButton>
                 }
             </div>
-        </HeaderPanel>
+        </Wrapper>
     );
 };
 
-
-const Menu = ({email, logout}) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const openMenu = () => {
-        setIsOpen(true);
-    };
-
-    const closeMenu = () => {
-        setIsOpen(false);
-    };
-
-    const quit = () => {
-        logout();
-        closeMenu();
-    };
-    return (
-        <MenuBlock>
-            <MenuButton onClick={isOpen ? closeMenu : openMenu}>
-                {email}
-                <Icon src={arrowIcon} alt="arrow-bottom"/>
-            </MenuButton>
-            {
-                isOpen
-                    ? <StyledList>
-
-                        <StyledLI onClick={closeMenu}>
-                            <Icon src={settingsIcon} alt="settings-icon"/>
-                            <NavLink to="/settings">
-                                Settings
-                            </NavLink>
-                        </StyledLI>
-
-                        <StyledLI onClick={quit}>
-                            <Icon src={logoutIcon} alt="logout-icon"/>
-                            Logout
-                        </StyledLI>
-
-                    </StyledList>
-
-                    : null
-            }
-        </MenuBlock>
-    );
-};
-
-const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth,
-    email: state.auth.email
-});
-
-export default connect(mapStateToProps, {logout})(Header);
+export default Header;

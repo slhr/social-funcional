@@ -7,8 +7,8 @@ export const Icon = styled.img`
   cursor: ${props => props.pointer ? "pointer" : "auto"};
 `;
 
-export const Logo50 = styled.img`
-  width: 50px;
+export const Logo = styled.img`
+  width: ${props => props.width || "50px"};
 `;
 
 export const Avatar = styled.img`

@@ -2,10 +2,11 @@ import React, {useEffect} from "react";
 import styled from "styled-components";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
-import AppRouter from "./components/AppRouter";
-import {connect} from "react-redux";
+import MainContent from "./components/MainContent";
+import {useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader";
+
 
 const AppWrapper = styled.div`
   margin: 0 auto;
@@ -22,11 +23,13 @@ const AppWrapper = styled.div`
 `;
 
 
-const App = ({initialized, initializeApp}) => {
+const App = () => {
+    const initialized = useSelector(state => state.app.initialized);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        initializeApp();
-    }, [initializeApp]);
+        dispatch(initializeApp());
+    }, [dispatch]);
 
     if (!initialized) return <Preloader/>;
 
@@ -34,15 +37,16 @@ const App = ({initialized, initializeApp}) => {
         <AppWrapper>
             <Header/>
             <Navbar/>
-            <AppRouter/>
+            <MainContent/>
         </AppWrapper>
     );
 };
 
-const mapStateToProps = state => ({
-    initialized: state.app.initialized,
-});
+export default App;
 
-export default connect(mapStateToProps, {initializeApp})(App);
+
+
+
+
 
 

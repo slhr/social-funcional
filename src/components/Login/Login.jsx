@@ -1,6 +1,6 @@
 import React from "react";
 import {login} from "../../redux/auth-reducer";
-import {connect, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {Container, FlexContainer} from "../Styled/containers";
 import styled from "styled-components";
@@ -14,7 +14,6 @@ const FormWrapper = styled.div`
 `;
 
 export const StyledButton = styled.button`
-
   display: inline-block;
   padding: 5px 20px;
   margin: 20px 20px;
@@ -57,7 +56,6 @@ const StyledInput = styled.input`
   height: 25px;
   border: none;
   border-bottom: 1px solid #dd3e2b;
-  font-size: 13px;
   color: darkred;
   padding: 0 5px;
   margin: 10px 0 10px 0;
@@ -88,18 +86,20 @@ const ErrorMessage = styled.p`
 const schema = yup.object().shape({
     email: yup.string().required("Email is required field"),
     password: yup.string().required("Password is required field"),
-
 });
 
 
-const Login = ({isAuth, login}) => {
+const Login = () => {
+    const isAuth = useSelector(state => state.auth.isAuth);
+    const dispatch = useDispatch();
+
     const {register, handleSubmit, setError, formState: {errors}} = useForm({
         mode: "onBlur",
         resolver: yupResolver(schema)
     });
 
     const onSubmit = (values) => {
-        login(values.email, values.password, values.rememberMe, values.captcha)
+        dispatch(login(values.email, values.password, values.rememberMe, values.captcha))
             .catch(e => {
                 setError("serverError", {message: e.message});
             });
@@ -119,34 +119,20 @@ const Login = ({isAuth, login}) => {
 
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <StyledInput
-                            {...register("email")}
-                            type="email"
-                            placeholder="Email"/>
-
+                        <StyledInput {...register("email")} placeholder="Email"/>
                         {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 
-                        <StyledInput
-                            {...register("password")}
-                            type="password"
-                            placeholder="Password"/>
+                        <StyledInput {...register("password")} type="password" placeholder="Password"/>
                         {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 
-                        <input
-                            {...register("rememberMe")}
-                            type="checkbox"/>
-
-                        <StyledLabel htmlFor="password">Remember Me</StyledLabel>
-
+                        <input {...register("rememberMe")} type="checkbox"/>
+                        <StyledLabel htmlFor="rememberMe">Remember Me</StyledLabel>
 
                         {
                             captchaUrl &&
                             <>
                                 <img src={captchaUrl} alt="captcha"/>
-                                <StyledInput
-                                    {...register("captcha")}
-                                    type="captcha"
-                                    placeholder="Enter symbols from picture"/>
+                                <StyledInput {...register("captcha")} placeholder="Enter symbols from picture"/>
                                 {errors.captcha && <ErrorMessage>{errors.captcha.message}</ErrorMessage>}
                             </>
                         }
@@ -163,8 +149,5 @@ const Login = ({isAuth, login}) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    isAuth: state.auth.isAuth
-});
 
-export default connect(mapStateToProps, {login})(Login);
+export default Login;

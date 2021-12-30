@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-
 import preloader from "../../assets/images/preloader.gif";
 
 const Wrapper = styled.div`
