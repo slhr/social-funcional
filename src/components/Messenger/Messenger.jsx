@@ -3,13 +3,14 @@ import styled from "styled-components";
 import {Container} from "../Styled/containers";
 import defaultAvatar from "../../assets/images/default-avatar.png";
 import {Avatar} from "../Styled/image";
-import Dialogs, {Name} from "./Dialogs";
-import DialogWindow from "./DialogWindow";
+import Dialogs from "./Dialogs/Dialogs";
+import ChatWindow from "./ChatWindow/ChatWindow";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
+import {Name} from "./Dialogs/DialogItem";
 
 
-const DialogsContainer = styled(Container)`
+const Wrapper = styled(Container)`
   display: grid;
   grid-template-rows: 100px 700px;
   grid-template-columns: 1fr 2fr;
@@ -24,11 +25,11 @@ const Header = styled.h3`
   border-bottom: 1px solid #ccc;
 `;
 
-const StatusHeader = styled(Header)`
+const ActiveDialogHeader = styled(Header)`
   border-left: 1px solid #ccc;
 `;
 
-const StatusBlock = styled.div`
+const ActiveDialogUserInfo = styled.div`
   width: 100%;
   margin: 4px;
   padding-left: 15px;
@@ -40,26 +41,27 @@ const OnlineStatus = styled.p`
   color: #686868;
 `;
 
-const Messages = () => {
+const Messenger = () => {
+    const authorizedUserId = useSelector(state => state.auth.userId);
 
-    const userId = useSelector(state => state.auth.userId);
-    if (!userId) return <Navigate to={"/login"}/>;
+    if (!authorizedUserId) return <Navigate to={"/login"}/>;
+
     return (
-        <DialogsContainer>
+        <Wrapper>
             <Header>Messages</Header>
-            <StatusHeader>
+            <ActiveDialogHeader>
                 <Avatar width="50px" src={defaultAvatar} alt="avatar"/>
-                <StatusBlock>
+                <ActiveDialogUserInfo>
                     <Name>John Doe</Name>
                     <OnlineStatus>Online</OnlineStatus>
-                </StatusBlock>
-            </StatusHeader>
+                </ActiveDialogUserInfo>
+            </ActiveDialogHeader>
             <Dialogs/>
-            <DialogWindow/>
+            <ChatWindow/>
 
-        </DialogsContainer>
+        </Wrapper>
     );
 };
 
 
-export default Messages;
+export default Messenger;

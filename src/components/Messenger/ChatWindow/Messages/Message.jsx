@@ -1,10 +1,10 @@
-import {Avatar} from "../Styled/image";
-import defaultAvatar from "../../assets/images/default-avatar.png";
+import {Avatar} from "../../../Styled/image";
+import defaultAvatar from "../../../../assets/images/default-avatar.png";
 import React from "react";
 import styled from "styled-components";
 
 
-const StyledMessage = styled.div`
+const Wrapper = styled.div`
   float: ${props => props.isInput ? "left" : "right"};
   font-size: 14px;
   clear: both;
@@ -27,7 +27,7 @@ const StyledMessage = styled.div`
 
 const Message = ({isInput, text}) => {
     return (
-        <StyledMessage isInput={isInput}>
+        <Wrapper isInput={isInput}>
             {
                 isInput
                     ? <div>
@@ -39,7 +39,7 @@ const Message = ({isInput, text}) => {
                         <Avatar src={defaultAvatar}/>
                     </div>
             }
-        </StyledMessage>
+        </Wrapper>
     );
 };
 
