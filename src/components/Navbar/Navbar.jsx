@@ -11,13 +11,13 @@ import newsIcon from "../../assets/images/news.png";
 import musicIcon from "../../assets/images/music.png";
 
 
-const NavbarWrapper = styled.nav`
+const Wrapper = styled.nav`
   grid-area: n;
   background-color: #fff;
   box-shadow: 1px 1px 5px #ccc;
 `;
 
-const LinkWrapper = styled.div`
+const LinkBlock = styled.div`
   padding: 10px 15px;
   border-bottom: 1px solid #f2f2f2;
   display: flex;
@@ -34,39 +34,39 @@ const Navbar = () => {
 
     return (
         <div>
-            <NavbarWrapper>
+            <Wrapper>
 
-                <LinkWrapper>
+                <LinkBlock>
                     <Icon src={profileIcon} alt="profile-icon"/>
                     <NavLink to="/profile" className={classes}>Profile</NavLink>
-                </LinkWrapper>
+                </LinkBlock>
 
-                <LinkWrapper>
+                <LinkBlock>
                     <Icon src={messagesIcon} alt="messages-icon"/>
                     <NavLink to="/dialogs" className={classes}>Messages</NavLink>
-                </LinkWrapper>
+                </LinkBlock>
 
-                <LinkWrapper>
+                <LinkBlock>
                     <Icon src={usersIcon} alt="users-icon"/>
                     <NavLink to="/users" className={classes}>Users</NavLink>
-                </LinkWrapper>
+                </LinkBlock>
 
-                <LinkWrapper>
+                <LinkBlock>
                     <Icon src={newsIcon} alt="news-icon"/>
                     <NavLink to="/news" className={classes}>News</NavLink>
-                </LinkWrapper>
+                </LinkBlock>
 
-                <LinkWrapper>
+                <LinkBlock>
                     <Icon src={musicIcon} alt="music-icon"/>
                     <NavLink to="/music" className={classes}>Music</NavLink>
-                </LinkWrapper>
+                </LinkBlock>
 
-                <LinkWrapper>
+                <LinkBlock>
                     <Icon src={settingsIcon} alt="settings-icon"/>
                     <NavLink to="/settings" className={classes}>Settings</NavLink>
-                </LinkWrapper>
+                </LinkBlock>
 
-            </NavbarWrapper>
+            </Wrapper>
         </div>
     );
 };

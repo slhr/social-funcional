@@ -2,15 +2,16 @@ import React, {useState} from "react";
 import {Container} from "../Styled/containers";
 import styled from "styled-components";
 
+
 const PaginatorContainer = styled(Container)`
   padding: 10px;
   text-align: center;
 `;
 
+
 const NavigationButton = styled.button`
   padding: 5px 15px;
   border: 2px solid #dd3e2b;
-
   color: #dd3e2b;
   transition: .2s ease-in-out;
   border-radius: 5px;
@@ -32,6 +33,7 @@ const NavigationButton = styled.button`
   }
 `;
 
+
 const PageNumberFrame = styled.span`
   margin: 0 5px 0 5px;
   display: inline-block;
@@ -41,8 +43,7 @@ const PageNumberFrame = styled.span`
   border: 2px solid #dd3e2b;
   line-height: 23px;
   border-radius: 5px;
-
-
+  
   :hover {
     cursor: pointer;
   }
@@ -50,6 +51,7 @@ const PageNumberFrame = styled.span`
   background: ${props => props.isActive ? "#dd3e2b" : "#fff"};
   color: ${props => props.isActive ? "#fff" : ""};
 `;
+
 
 const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, portionSize = 3}) => {
 
@@ -81,7 +83,6 @@ const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, porti
     };
 
     return (
-
         <PaginatorContainer>
             <NavigationButton onClick={setPreviousPortion}>
                 prev
@@ -113,9 +114,7 @@ const Paginator = ({totalUsersCount, pageSize, currentPage, onPageChanged, porti
             }
             <NavigationButton onClick={setNextPortion}>next</NavigationButton>
 
-
         </PaginatorContainer>
-
     );
 };
 

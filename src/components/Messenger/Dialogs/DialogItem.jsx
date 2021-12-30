@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {Avatar} from "../../Styled/image";
 import React from "react";
 
+
 const DialogItemWrapper = styled.li`
   width: 100%;
   height: 90px;
@@ -66,5 +67,6 @@ const DialogItem = ({dialog}) => {
         </DialogItemWrapper>
     );
 };
+
 
 export default DialogItem;

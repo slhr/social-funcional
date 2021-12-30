@@ -1,25 +1,28 @@
 import React, {useEffect} from "react";
 import {FlexContainer} from "../Styled/containers";
-import {connect} from "react-redux";
-
-import {follow, requestUsers, setCurrentPage, toggleFollowingProgress, unfollow} from "../../redux/users-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {requestUsers} from "../../redux/users-reducer";
 import Preloader from "../common/Preloader";
 import User from "./User";
 import Paginator from "./Paginator";
 
 
-const Users = ({
-                   users, totalUsersCount, currentPage, pageSize, requestUsers,
-                   follow, unfollow, followingInProgress, isFetching
-               }) => {
+const Users = () => {
+    const users = useSelector(state => state.users.users);
+    const pageSize = useSelector(state => state.users.pageSize);
+    const totalUsersCount = useSelector(state => state.users.totalUsersCount);
+    const currentPage = useSelector(state => state.users.currentPage);
+    const isFetching = useSelector(state => state.users.isFetching);
+
+    const dispatch = useDispatch();
 
     const onPageChanged = pageNumber => {
-        requestUsers(pageNumber, pageSize);
+        dispatch(requestUsers(pageNumber, pageSize));
     };
 
     useEffect(() => {
-        requestUsers(currentPage, pageSize);
-    }, [requestUsers, currentPage, pageSize]);
+        dispatch(requestUsers(currentPage, pageSize));
+    }, [dispatch, currentPage, pageSize]);
 
     return (
 
@@ -32,7 +35,6 @@ const Users = ({
 
             {
                 <div>
-
                     <Paginator currentPage={currentPage}
                                onPageChanged={onPageChanged}
                                totalUsersCount={totalUsersCount}
@@ -43,12 +45,7 @@ const Users = ({
 
                         <FlexContainer width="100%" flexWrap="wrap" justify="space-between">
                             {
-                                users.map(u => <User key={u.id}
-                                                     user={u}
-                                                     followingInProgress={followingInProgress}
-                                                     unfollow={unfollow}
-                                                     follow={follow}/>
-                                )
+                                users.map(u => <User key={u.id} user={u} />)
                             }
                         </FlexContainer>
                     }
@@ -60,16 +57,6 @@ const Users = ({
     );
 };
 
-const mapStateToProps = state => ({
-    users: state.users.users,
-    pageSize: state.users.pageSize,
-    totalUsersCount: state.users.totalUsersCount,
-    currentPage: state.users.currentPage,
-    isFetching: state.users.isFetching,
-    followingInProgress: state.users.followingInProgress,
-});
+export default Users;
 
-export default connect(mapStateToProps,
-    {follow, unfollow, setCurrentPage, toggleFollowingProgress, requestUsers})
-(Users);
 

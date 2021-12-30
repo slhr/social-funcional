@@ -4,6 +4,8 @@ import defaultAvatar from "../../assets/images/default-avatar.png";
 import {Container} from "../Styled/containers";
 import {Avatar} from "../Styled/image";
 import styled from "styled-components";
+import {useDispatch, useSelector} from "react-redux";
+import {follow, unfollow} from "../../redux/users-reducer";
 
 
 const UserContainer = styled(Container)`
@@ -78,36 +80,40 @@ const FollowingButton = styled.button`
 
 `;
 
-const User = ({user, followingInProgress, unfollow, follow}) => {
+const User = ({user}) => {
+    const followingInProgress = useSelector(state => state.users.followingInProgress);
+    const dispatch = useDispatch();
+
+    const followUser = (userId) => {
+        dispatch(follow(userId));
+    };
+    const unfollowUser = (userId) => {
+        dispatch(unfollow(userId));
+    };
+
+
     return (
         <UserContainer width="220px">
             <div>
-
-
                 <Avatar width="100px" src={user.photos.small || defaultAvatar} alt="ava"/>
-
-
                 <UserName>{user.name}</UserName>
-
                 <UserStatus>{user.status ? user.status : "-"}</UserStatus>
 
                 <div>
                     {
                         user.followed
                             ? <FollowingButton disabled={followingInProgress.some(id => id === user.id)}
-                                               onClick={() => {
-                                                   unfollow(user.id);
-                                               }}>Unfollow</FollowingButton>
+                                               onClick={() => unfollowUser(user.id)}>
+                                Unfollow
+                            </FollowingButton>
+
                             : <FollowingButton disabled={followingInProgress.some(id => id === user.id)}
-                                               onClick={() => {
-                                                   follow(user.id);
-                                               }}>Follow</FollowingButton>
+                                               onClick={() => followUser(user.id)}>
+                                Follow
+                            </FollowingButton>
                     }
                 </div>
-
-
             </div>
-
 
             <ViewProfileLink to={"/profile/" + user.id}>
                 View Profile

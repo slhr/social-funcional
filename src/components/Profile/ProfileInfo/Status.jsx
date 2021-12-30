@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components";
+import {updateStatus} from "../../../redux/profile-reducer";
+import {useDispatch} from "react-redux";
 
 
 const Status = styled.div`
@@ -22,9 +24,10 @@ const NoneStatus = styled.span`
   color: #939393;
 `;
 
-const ProfileStatus = ({status, updateStatus}) => {
+const ProfileStatus = ({status}) => {
     const [editMode, setEditMode] = useState(false);
     const [formStatus, setStatus] = useState(status);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setStatus(status);
@@ -35,7 +38,7 @@ const ProfileStatus = ({status, updateStatus}) => {
     };
 
     const deactivateEditMode = () => {
-        updateStatus(formStatus);
+        dispatch(updateStatus(formStatus));
         setEditMode(false);
     };
 

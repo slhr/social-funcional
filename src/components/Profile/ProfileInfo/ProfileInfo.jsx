@@ -6,7 +6,7 @@ import ProfileStatus from "./Status";
 import {Container, FlexContainer} from "../../Styled/containers";
 import styled from "styled-components";
 import {BlockContainer} from "../Profile";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {saveProfile, setAvatarPhoto} from "../../../redux/profile-reducer";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
@@ -129,8 +129,11 @@ const ErrorMessage = styled.p`
 const schema = yup.object().shape({});
 
 
-const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
+const ProfileInfo = ({isOwner}) => {
     const [editMode, setEditMode] = useState(false);
+
+    const profile = useSelector(state => state.profile.profile);
+    const status = useSelector(state => state.profile.status);
     const dispatch = useDispatch();
 
     const {register, handleSubmit, setValue, setError, formState: {errors}} = useForm({
@@ -232,7 +235,7 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner}) => {
                     </FlexContainer>
                     {
                         isOwner
-                            ? <ProfileStatus status={status} updateStatus={updateStatus}/>
+                            ? <ProfileStatus status={status}/>
                             : <span>{status}</span>
                     }
                 </InfoBlock>

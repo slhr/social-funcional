@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {connect} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {getStatus, getUserProfile, updateStatus} from "../../redux/profile-reducer";
 import {useParams, Navigate} from "react-router-dom";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
@@ -15,29 +15,27 @@ export const BlockContainer = styled.div`
 `;
 
 
-const Profile = ({profile, status, authorizedUserId, getUserProfile, getStatus, updateStatus}) => {
-    const params = useParams();
-    const isOwner = !params.userId;
-    const isAuthorized = !!authorizedUserId;
-    const userId = params.userId || authorizedUserId;
+const Profile = () => {
+    const authorizedUserId = useSelector(state => state.auth.userId);
 
+    const pathParams = useParams();
+    const isOwner = !pathParams.userId;
+    const isAuthorized = !!authorizedUserId;
+    const userId = pathParams.userId || authorizedUserId;
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (userId) {
-            getUserProfile(userId);
-            getStatus(userId);
+            dispatch(getUserProfile(userId));
+            dispatch(getStatus(userId));
         }
-
-    }, [getStatus, getUserProfile, userId]);
+    }, [dispatch, userId]);
 
     if (!userId) return <Navigate to={"/login"}/>;
     return (
         <div>
-            <ProfileInfo profile={profile}
-                         status={status}
-                         updateStatus={updateStatus}
-                         isOwner={isOwner}
-                         isAuthorized={isAuthorized}/>
+            <ProfileInfo isOwner={isOwner} />
             <BlockContainer>
                 <Friends isOwner={isOwner} isAuthorized={isAuthorized}/>
                 <MyPosts isOwner={isOwner} isAuthorized={isAuthorized}/>
