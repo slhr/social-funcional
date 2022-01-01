@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
-
 import Post, {PostCreateForm} from "./Post";
 import {Container} from "../../Styled/containers";
 import styled from "styled-components";
@@ -13,9 +12,9 @@ const PostsHeaderContainer = styled(Container)`
   justify-content: space-between;
 `;
 
+
 const AddPostButton = styled.button`
   width: 25px;
-
   background-color: #E44D3A;
   color: #fff;
   border: 2px solid #dd3e2b;
@@ -29,6 +28,7 @@ const AddPostButton = styled.button`
     color: #dd3e2b;
   }
 `;
+
 
 const MyPosts = ({isOwner, isAuthorized}) => {
     const [editMode, setEditMode] = useState(false);

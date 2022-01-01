@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
-import {connect, useDispatch, useSelector} from "react-redux";
-import {getStatus, getUserProfile, updateStatus} from "../../redux/profile-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {getStatus, getUserProfile} from "../../redux/profile-reducer";
 import {useParams, Navigate} from "react-router-dom";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts from "./MyPosts/MyPosts";
@@ -8,7 +8,7 @@ import styled from "styled-components";
 import Friends from "./Friends/Friends";
 
 
-export const BlockContainer = styled.div`
+export const ContainerBlock = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
   margin-bottom: 25px;
@@ -35,20 +35,14 @@ const Profile = () => {
     if (!userId) return <Navigate to={"/login"}/>;
     return (
         <div>
-            <ProfileInfo isOwner={isOwner} />
-            <BlockContainer>
+            <ProfileInfo isOwner={isOwner}/>
+            <ContainerBlock>
                 <Friends isOwner={isOwner} isAuthorized={isAuthorized}/>
                 <MyPosts isOwner={isOwner} isAuthorized={isAuthorized}/>
-            </BlockContainer>
+            </ContainerBlock>
         </div>)
         ;
 };
 
 
-const mapStateToProps = state => ({
-    profile: state.profile.profile,
-    status: state.profile.status,
-    authorizedUserId: state.auth.userId,
-});
-
-export default connect(mapStateToProps, {getUserProfile, getStatus, updateStatus})(Profile);
+export default Profile;

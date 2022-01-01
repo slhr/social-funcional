@@ -20,10 +20,12 @@ const PostContainer = styled(Container)`
   margin-bottom: 25px;
 `;
 
+
 const PostHeaderBlock = styled.div`
   display: flex;
   align-items: center;
 `;
+
 
 const PostTextBlock = styled.div`
   padding: 25px 0;
@@ -31,12 +33,17 @@ const PostTextBlock = styled.div`
   color: #666666
 `;
 
+
 const FooterBlock = styled.div`
   padding: 15px 0 0 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  font-size: 14px;
+  color: #B2B2B2;
 `;
+
 
 const FooterIconBlock = styled.div`
   display: flex;
@@ -44,16 +51,19 @@ const FooterIconBlock = styled.div`
   justify-content: space-between;
 `;
 
+
 const PostHeaderText = styled.div`
   width: 100%;
   margin: 4px;
   padding-left: 15px;
 `;
 
+
 export const Name = styled.h3`
   font-size: 18px;
   font-weight: normal;
 `;
+
 
 const ElapsedTimePost = styled.p`
   font-size: 16px;
@@ -66,10 +76,6 @@ const ElapsedTimePost = styled.p`
   overflow: hidden;
 `;
 
-const FooterText = styled.span`
-  font-size: 14px;
-  color: #B2B2B2;
-`;
 
 const Post = ({isAuthorized, message, likesCount, viewsCount, elapsedTimePost}) => {
     const avatarPath = useSelector(state => state.profile?.profile?.photos?.large || defaultAvatar);
@@ -93,10 +99,8 @@ const Post = ({isAuthorized, message, likesCount, viewsCount, elapsedTimePost}) 
             <PostHeaderBlock>
                 <Avatar src={avatarPath} alt="avatar" width="75px"/>
                 <PostHeaderText>
-
                     <Name>{fullName}</Name>
                     <ElapsedTimePost>{elapsedTimePost}</ElapsedTimePost>
-
                 </PostHeaderText>
                 <Icon src={menuIcon} margins="none" pointer/>
             </PostHeaderBlock>
@@ -105,44 +109,37 @@ const Post = ({isAuthorized, message, likesCount, viewsCount, elapsedTimePost}) 
                 <p>{message}</p>
             </PostTextBlock>
 
-
             <FooterBlock>
                 <FooterIconBlock>
                     <Icon src={isLiked ? likeEnabledIcon : likeDisabledIcon} margins="0 10px 0 0" pointer
                           onClick={likeToggle}/>
-                    <FooterText>
-                        {likesNumber}
-                    </FooterText>
+                    <span>{likesNumber}</span>
                 </FooterIconBlock>
 
                 <FooterIconBlock>
                     <Icon src={eyeIcon} margins="0 10px 0 15px"/>
-                    <FooterText>
-                        Views: {viewsCount}
-                    </FooterText>
+                    <span>Views: {viewsCount}</span>
                 </FooterIconBlock>
-
             </FooterBlock>
         </PostContainer>
     );
 };
 
+
 const PostInput = styled.textarea`
   resize: none;
   margin: 0 0 0 15px;
   width: 100%;
-
-
   padding: 10px 10px;
   border: 1px solid #ccc;
   color: #212529;
   font-size: 14px;
 
-
   :focus {
     outline: none;
   }
 `;
+
 
 const PostSendButton = styled.button`
   margin: 15px 0 0 0;
@@ -162,8 +159,8 @@ const PostSendButton = styled.button`
   }
 `;
 
-const Div = styled.div`
 
+const Div = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -171,9 +168,9 @@ const Div = styled.div`
   text-align: right;
 `;
 
+
 export const PostCreateForm = ({toggleEditMode}) => {
     const avatarPath = useSelector(state => state.profile?.profile?.photos?.large || defaultAvatar);
-
     const dispatch = useDispatch();
 
     const handleOnSubmit = (values) => {
@@ -188,11 +185,8 @@ export const PostCreateForm = ({toggleEditMode}) => {
                 <Form autoComplete="off">
                     <PostHeaderBlock>
                         <Avatar src={avatarPath} alt="avatar" width="50px"/>
-
-
                         <Field as={PostInput} name="postText" id="postText" type="text"
                                placeholder="Type a post message here"/>
-
                     </PostHeaderBlock>
 
                     <Div>
@@ -201,16 +195,13 @@ export const PostCreateForm = ({toggleEditMode}) => {
                             <Icon src={cameraIcon}/>
                             <Icon src={attachmentIcon}/>
                         </IconBlock>
-                        <PostSendButton type="submit">
-                            Add Post
-                        </PostSendButton>
+                        <PostSendButton type="submit">Add Post</PostSendButton>
                     </Div>
-
                 </Form>
             </Formik>
-
         </PostContainer>
     );
 };
+
 
 export default Post;

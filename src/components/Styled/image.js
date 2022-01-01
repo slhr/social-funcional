@@ -16,9 +16,3 @@ export const Avatar = styled.img`
   border-radius: 50%;
   border: ${props => props.bordered ? "10px solid #fff" : "none"};
 `;
-
-export const Avatar150 = styled.img`
-  width: 150px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-`;
