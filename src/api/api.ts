@@ -15,33 +15,33 @@ export const usersAPI = {
             .then(response => response.data);
     },
 
-    follow(userId) {
+    follow(userId: number) {
         return instance.post(`follow/${userId}`);
     },
 
-    unfollow(userId) {
+    unfollow(userId: number) {
         return instance.delete(`follow/${userId}`);
     },
 };
 
 export const profileAPI = {
-    getProfile(userId) {
+    getProfile(userId: number) {
         return instance.get(`profile/${userId}`);
     },
 
-    getStatus(userId) {
+    getStatus(userId: number) {
         return instance.get(`profile/status/${userId}`);
     },
 
-    updateStatus(status) {
+    updateStatus(status: string) {
         return instance.put(`profile/status`, {status});
     },
 
-    saveProfile(profile) {
+    saveProfile(profile: any) {
         return instance.put(`profile`, profile);
     },
 
-    setAvatarPhoto(file) {
+    setAvatarPhoto(file: any) {
         const formData = new FormData();
         formData.append("image", file);
 
@@ -59,7 +59,7 @@ export const authAPI = {
         return instance.get(`auth/me`);
     },
 
-    login(email, password, rememberMe = false, captcha = null) {
+    login(email: string, password: string, rememberMe = false, captcha: string | null = null) {
         return instance.post(`auth/login`, {email, password, rememberMe, captcha});
     },
 

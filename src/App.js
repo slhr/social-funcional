@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import styled from "styled-components";
-import Header from "./components/Header/Header";
-import Navbar from "./components/Navbar/Navbar";
-import MainContent from "./components/MainContent";
 import {useDispatch, useSelector} from "react-redux";
-import {initializeApp} from "./redux/app-reducer";
+import styled from "styled-components";
 import Preloader from "./components/common/Preloader";
+import Header from "./components/Header/Header";
+import MainContent from "./components/MainContent";
+import Navbar from "./components/Navbar/Navbar";
+import {initializeApp} from "./redux/app-reducer";
 
 
 const AppWrapper = styled.div`
