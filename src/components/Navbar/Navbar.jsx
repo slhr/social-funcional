@@ -1,14 +1,11 @@
 import React from "react";
-import styled from "styled-components";
 import {NavLink} from "react-router-dom";
-import styles from "./Navbar.module.css";
-import {Icon} from "../Styled/image";
-import settingsIcon from "../../assets/images/settings.png";
+import styled from "styled-components";
+import messagesIcon from "../../assets/images/messages.png";
 import profileIcon from "../../assets/images/profile.png";
 import usersIcon from "../../assets/images/users.png";
-import messagesIcon from "../../assets/images/messages.png";
-import newsIcon from "../../assets/images/news.png";
-import musicIcon from "../../assets/images/music.png";
+import {Icon} from "../Styled/image";
+import styles from "./Navbar.module.css";
 
 
 const Wrapper = styled.nav`
@@ -51,20 +48,20 @@ const Navbar = () => {
                     <NavLink to="/users" className={classes}>Users</NavLink>
                 </LinkBlock>
 
-                <LinkBlock>
-                    <Icon src={newsIcon} alt="news-icon"/>
-                    <NavLink to="/news" className={classes}>News</NavLink>
-                </LinkBlock>
+                {/*<LinkBlock>*/}
+                {/*    <Icon src={newsIcon} alt="news-icon"/>*/}
+                {/*    <NavLink to="/news" className={classes}>News</NavLink>*/}
+                {/*</LinkBlock>*/}
 
-                <LinkBlock>
-                    <Icon src={musicIcon} alt="music-icon"/>
-                    <NavLink to="/music" className={classes}>Music</NavLink>
-                </LinkBlock>
+                {/*<LinkBlock>*/}
+                {/*    <Icon src={musicIcon} alt="music-icon"/>*/}
+                {/*    <NavLink to="/music" className={classes}>Music</NavLink>*/}
+                {/*</LinkBlock>*/}
 
-                <LinkBlock>
-                    <Icon src={settingsIcon} alt="settings-icon"/>
-                    <NavLink to="/settings" className={classes}>Settings</NavLink>
-                </LinkBlock>
+                {/*<LinkBlock>*/}
+                {/*    <Icon src={settingsIcon} alt="settings-icon"/>*/}
+                {/*    <NavLink to="/settings" className={classes}>Settings</NavLink>*/}
+                {/*</LinkBlock>*/}
 
             </Wrapper>
         </div>

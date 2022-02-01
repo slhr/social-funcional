@@ -1,12 +1,12 @@
-import React from "react";
-import {login} from "../../redux/auth-reducer";
+import {yupResolver} from "@hookform/resolvers/yup";
+import React, {useState} from "react";
+import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {Container, FlexContainer} from "../Styled/containers";
 import styled from "styled-components";
-import {useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import {login} from "../../redux/auth-reducer";
+import {Container, FlexContainer} from "../Styled/containers";
 
 
 const FormWrapper = styled.div`
@@ -107,6 +107,18 @@ const Login = () => {
 
     const captchaUrl = useSelector(state => state.auth.captchaUrl);
 
+    // gh-pages login info
+    const [email, setEmail] = useState("slhr@bk.ru");
+    const [password, setPassword] = useState("slhrslhr");
+
+    const onEmailChange = (e) => {
+        setEmail(e.target.value);
+    };
+    const onPasswordChange = (e) => {
+        setPassword(e.target.value);
+    };
+    // ------------------------------------
+
     if (isAuth) {
         return <Navigate to={"/profile"}/>;
     }
@@ -119,10 +131,11 @@ const Login = () => {
 
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <StyledInput {...register("email")} placeholder="Email"/>
+                        <StyledInput {...register("email")} placeholder="Email" value={email} onChange={onEmailChange}/>
                         {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
 
-                        <StyledInput {...register("password")} type="password" placeholder="Password"/>
+                        <StyledInput {...register("password")} type="password" placeholder="Password" value={password}
+                                     onChange={onPasswordChange}/>
                         {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
 
                         <input {...register("rememberMe")} type="checkbox"/>

@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {Provider} from "react-redux";
+import {HashRouter} from "react-router-dom";
+import {createGlobalStyle} from "styled-components";
 import App from "./App";
 import store from "./redux/store";
-import {BrowserRouter} from "react-router-dom";
-import {Provider} from "react-redux";
-import {createGlobalStyle} from "styled-components";
 
 const Global = createGlobalStyle`
   * {
@@ -42,13 +42,13 @@ const Global = createGlobalStyle`
 `;
 
 ReactDOM.render(
-    <BrowserRouter>
+    <HashRouter>
         <Provider store={store}>
             <>
                 <Global/>
                 <App/>
             </>
         </Provider>
-    </BrowserRouter>,
+    </HashRouter>,
     document.getElementById("root")
 );

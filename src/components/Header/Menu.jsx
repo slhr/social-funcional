@@ -1,12 +1,10 @@
 import React, {useState} from "react";
-import {Icon} from "../Styled/image";
-import arrowIcon from "../../assets/images/arrow-bottom.png";
-import settingsIcon from "../../assets/images/settings.png";
-import {NavLink} from "react-router-dom";
-import logoutIcon from "../../assets/images/logout.png";
 import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../../redux/auth-reducer";
 import styled from "styled-components";
+import arrowIcon from "../../assets/images/arrow-bottom.png";
+import logoutIcon from "../../assets/images/logout.png";
+import {logout} from "../../redux/auth-reducer";
+import {Icon} from "../Styled/image";
 
 
 export const MenuBlock = styled.ul`
@@ -75,17 +73,22 @@ const Menu = () => {
     const email = useSelector(state => state.auth.email);
     const dispatch = useDispatch();
 
-    const toggleShowMenu = () => {
-        setIsOpen(!isOpen);
+    const showMenu = () => {
+        setIsOpen(true);
+    };
+
+    const hideMenu = () => {
+        setIsOpen(false);
     };
 
     const quit = () => {
         dispatch(logout());
     };
 
+
     return (
         <MenuBlock>
-            <MenuButton onClick={toggleShowMenu}>
+            <MenuButton onClick={isOpen ? hideMenu : showMenu}>
                 {email}
                 <Icon src={arrowIcon} alt="arrow-bottom"/>
             </MenuButton>
@@ -93,12 +96,12 @@ const Menu = () => {
                 isOpen &&
                 <StyledList>
 
-                    <StyledLI onClick={toggleShowMenu}>
-                        <Icon src={settingsIcon} alt="settings-icon"/>
-                        <NavLink to="/settings">
-                            Settings
-                        </NavLink>
-                    </StyledLI>
+                    {/*<StyledLI onClick={hideMenu}>*/}
+                    {/*    <Icon src={settingsIcon} alt="settings-icon"/>*/}
+                    {/*    <NavLink to="/settings">*/}
+                    {/*        Settings*/}
+                    {/*    </NavLink>*/}
+                    {/*</StyledLI>*/}
 
                     <StyledLI onClick={quit}>
                         <Icon src={logoutIcon} alt="logout-icon"/>
