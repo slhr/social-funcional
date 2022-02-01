@@ -1,11 +1,11 @@
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
+import styled from "styled-components";
 import defaultAvatar from "../../assets/images/default-avatar.png";
+import {follow, unfollow} from "../../redux/users-reducer";
 import {Container} from "../Styled/containers";
 import {Avatar} from "../Styled/image";
-import styled from "styled-components";
-import {useDispatch, useSelector} from "react-redux";
-import {follow, unfollow} from "../../redux/users-reducer";
 
 
 const UserContainer = styled(Container)`
@@ -27,11 +27,15 @@ const ViewProfileLink = styled(NavLink)`
 `;
 
 const UserName = styled.h2`
-  font-size: 18px;
-  margin: 10px 0;
+  font-size: 18px;  
+  margin: 10px auto;
+
+  text-align: center;
+  width: 90%;
 
   -webkit-line-clamp: 1;
   display: -webkit-box;
+  word-wrap: anywhere;
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
