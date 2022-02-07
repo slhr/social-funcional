@@ -1,5 +1,5 @@
 # gh-pages:
-https://slhr.github.io/social-funcrtonal
+https://slhr.github.io/social-funcional/
 
 
 # Getting Started with Create React App
