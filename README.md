@@ -1,6 +1,7 @@
 # gh-pages:
 https://slhr.github.io/social-funcional/
 
+#some changes
 
 # Getting Started with Create React App
 
